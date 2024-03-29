@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -22,7 +23,7 @@ public class AccountService {
     public AccountDto register(HttpServletRequest request) throws IOException {
 
         AccountDto dto = setAccount(request);
-        Account account = dto.accountObject();
+        Account account = dto.accountObject(dto);
 
 
         if(accountRepository.findById(dto.getEmail()).isPresent()){
@@ -40,12 +41,12 @@ public class AccountService {
         }
     }
     public AccountDto login(HttpServletRequest request) throws IOException {
-        AccountDto accountDto = setAccount(request);
-        System.out.println(accountRepository.findById(accountDto.getEmail()));
-        List<Account> a = accountRepository.findAll();
-        for(Account b:a){
-            System.out.println(b.getEmail());
-        }
+        AccountDto accountDto = new AccountDto();
+        accountDto.setEmail(request.getParameter("email"));
+        accountDto.setPassword(request.getParameter("password"));
+
+        Optional<String> optional = Optional.ofNullable(accountRepository.findPwd(accountDto.getEmail()));
+        System.out.println(optional.get());
         if(accountRepository.findById(accountDto.getEmail()).isPresent()){
             if(accountRepository.findPwd(accountDto.getEmail()).equals(accountDto.getPassword())){
                 accountDto.setStatus(201);

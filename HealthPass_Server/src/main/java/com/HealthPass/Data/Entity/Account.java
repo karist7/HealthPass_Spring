@@ -1,5 +1,6 @@
 package com.HealthPass.Data.Entity;
 
+import com.HealthPass.Data.Dto.AccountDto;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -27,4 +28,13 @@ public class Account {
     @Column(nullable = false)
     @Pattern(regexp="(?=.*[a-z])(?=.*[0-9]).{6,20}")
     private String password;
+
+    public static AccountDto toAccount(AccountDto accountDto){
+        AccountDto dto = new AccountDto();
+        dto.setEmail(accountDto.getEmail());
+        dto.setPhone(accountDto.getPhone());
+        dto.setPassword(accountDto.getPassword());
+        dto.setName(accountDto.getName());
+        return dto;
+    }
 }

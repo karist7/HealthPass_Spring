@@ -17,7 +17,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Capstone_HealthPass"
-
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -75,6 +75,7 @@
                         <category android:name="android.intent.category.LAUNCHER" />
                     </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDxZy03pE2BnIZh9v_avgCTPJJzrqToH-Y" />

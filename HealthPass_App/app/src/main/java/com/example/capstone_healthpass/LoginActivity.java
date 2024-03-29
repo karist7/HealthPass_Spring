@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstone_healthpass.server.RetrofitManager;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -61,14 +62,37 @@ public class LoginActivity extends AppCompatActivity {
     private void loginAccount(final String email, final String password){
 
 
-        retrofitManager.getApiService().loginPost(email,password).enqueue(new Callback<JSONObject>() {
+        retrofitManager.getApiService().loginPost(email,password).enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 Log.d("checkResponse","response "+response.code());
                 if (response.isSuccessful()) {
                     if (response.code() == 201) {
-                        getInfo(email);
+
+                        String responseBody = null; // 문자열로 변환
+                        try {
+                            responseBody = response.body().string();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                        JSONObject jsonResponse = null;
+                        try {
+                            jsonResponse = new JSONObject(responseBody);
+                        } catch (JSONException e) {
+                            throw new RuntimeException(e);
+                        }
+                        if (jsonResponse != null) {
+                            String email = null;
+                            try {
+                                email = jsonResponse.getString("email");
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+                            Log.d("Email", email);
+                                // 여기서 email 변수에는 응답에서 추출한 이메일이 들어 있습니다.
+                            }
+
 
                     } else if (response.code() == 202) {
                         Toast.makeText(LoginActivity.this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
@@ -83,7 +107,7 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<JSONObject> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "오류가 발생했습니다.", Toast.LENGTH_SHORT).show();
                 Log.d("LoginError", t.getMessage());
 

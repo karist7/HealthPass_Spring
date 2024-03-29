@@ -26,7 +26,7 @@ public interface ApiService {
 
     @FormUrlEncoded
     @POST("/login/")
-    Call<JSONObject> loginPost(
+    Call<ResponseBody> loginPost(
             @Field("email") String email,
             @Field("password") String password
     );

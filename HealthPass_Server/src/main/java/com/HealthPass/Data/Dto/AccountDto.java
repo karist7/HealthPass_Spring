@@ -17,12 +17,14 @@ public class AccountDto {
     private int  status;
     private String message;
 
-    public Account accountObject(){
-        Account account = new Account();
-        account.setEmail(email);
-        account.setName(name);
-        account.setPassword(password);
-        account.setPhone(phone);
-        return account;
+
+
+    public static Account accountObject(AccountDto account){
+        Account act = new Account();
+        act.setEmail(account.getEmail());
+        act.setName(account.getName());
+        act.setPassword(account.getPassword());
+        act.setPhone(account.getPhone());
+        return act;
     }
 }

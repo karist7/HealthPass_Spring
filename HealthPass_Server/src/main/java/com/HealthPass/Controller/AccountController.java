@@ -47,6 +47,7 @@ public class AccountController {
     @ResponseBody
     public ResponseEntity<AccountDto> loginPage(HttpServletRequest request)throws IOException{
         AccountDto dto = accountService.login(request);
+
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         if(dto.getStatus()==201){

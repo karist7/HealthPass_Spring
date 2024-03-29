@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AccountRepository extends JpaRepository<Account,String> {
     @Query("Select p.password from Account as p where p.email= :email")
-    AccountDto findPwd(@Param("email") String email);
+    String findPwd(@Param("email") String email);
 
 }
