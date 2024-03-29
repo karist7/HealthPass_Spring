@@ -12,4 +12,6 @@ public interface AccountRepository extends JpaRepository<Account,String> {
     @Query("Select p.password from Account as p where p.email= :email")
     String findPwd(@Param("email") String email);
 
+    @Query("Select p from Account as p where p.email= :email")
+    Account findInfo(@Param("email") String email);
 }

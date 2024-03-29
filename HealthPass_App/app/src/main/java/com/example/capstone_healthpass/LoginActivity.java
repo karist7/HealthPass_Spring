@@ -76,22 +76,35 @@ public class LoginActivity extends AppCompatActivity {
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
+
                         JSONObject jsonResponse = null;
                         try {
                             jsonResponse = new JSONObject(responseBody);
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
                         }
+                        String email = null;
+                        String phone = null;
+                        String name = null;
                         if (jsonResponse != null) {
-                            String email = null;
+
                             try {
                                 email = jsonResponse.getString("email");
+                                phone = jsonResponse.getString("phone");
+                                name = jsonResponse.getString("name");
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
                             Log.d("Email", email);
                                 // 여기서 email 변수에는 응답에서 추출한 이메일이 들어 있습니다.
                             }
+                        Intent result = new Intent(LoginActivity.this, MainActivity.class);
+                        result.putExtra("name",name);
+                        result.putExtra("phone",phone);
+                        result.putExtra("email",email);
+                        Toast.makeText(LoginActivity.this, name+"님, 반갑습니다.", Toast.LENGTH_SHORT).show();
+                        result.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(result);
 
 
                     } else if (response.code() == 202) {
@@ -115,47 +128,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    private void getInfo(final String email){
 
-        retrofitManager.getApiService().getName(email).enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
-                try {
-                    String responseData = null;
-                    String decodedString = null;
-                    responseData = response.body().string();
-                    String[] data = responseData.split(",");
-                    decodedString = StringEscapeUtils.unescapeJava(data[0]);
-                    MainActivity.userName=decodedString;
-                    String name = decodedString.replace("\"","").replace("[","");
-                    String phone =  data[1].replace("\"","").replace(" ","");
-                    String email = data[2].replace("\"","").replace("]","").replace(" ","");
-                    Log.d("name",name);
-                    Log.d("phone",phone);
-                    Log.d("email",email);
-                    nameValue=name;
-                    if(response.isSuccessful()){
-                        Log.d("responseTest",name+phone);
-                    }
-                    Intent result = new Intent(LoginActivity.this, MainActivity.class);
-                    result.putExtra("name",nameValue);
-                    result.putExtra("phone",phone);
-                    result.putExtra("email",email);
-                    Toast.makeText(LoginActivity.this, name+"님, 반갑습니다.", Toast.LENGTH_SHORT).show();
-                    result.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(result);
 
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.d("getInfoError",t.toString());
-            }
-        });
 
-    }
 }

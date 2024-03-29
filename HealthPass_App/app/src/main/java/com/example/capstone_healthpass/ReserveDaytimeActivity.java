@@ -81,11 +81,6 @@ public class ReserveDaytimeActivity extends Activity {
 
             tPicker.setMinute(30);
         }
-
-
-
-
-
         tPicker.setVisibility(View.INVISIBLE);
         dPicker.setVisibility(View.INVISIBLE);
         tPicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
@@ -143,7 +138,6 @@ public class ReserveDaytimeActivity extends Activity {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.YEAR, Integer.parseInt(tvYear.getText() .toString()));
                 calendar.set(Calendar.MONTH, Integer.parseInt(tvMonth.getText().toString())-1);
-
                 calendar.set(Calendar.DAY_OF_MONTH,Integer.parseInt(tvDay.getText() .toString()));
                 Date date = calendar.getTime();
 

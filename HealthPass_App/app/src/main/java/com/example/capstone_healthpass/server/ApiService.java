@@ -32,11 +32,7 @@ public interface ApiService {
     );
 
 
-    @GET("/getName")
-    Call<ResponseBody> getName(
-            @Query("email") String email
 
-    );
     @FormUrlEncoded
     @POST("/reservation/")
     Call<JSONObject> reserved(

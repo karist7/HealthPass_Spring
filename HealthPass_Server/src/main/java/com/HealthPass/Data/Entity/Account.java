@@ -29,12 +29,13 @@ public class Account {
     @Pattern(regexp="(?=.*[a-z])(?=.*[0-9]).{6,20}")
     private String password;
 
-    public static AccountDto toAccount(AccountDto accountDto){
+    public static AccountDto toAccountDto(Account accountDto){
         AccountDto dto = new AccountDto();
         dto.setEmail(accountDto.getEmail());
         dto.setPhone(accountDto.getPhone());
         dto.setPassword(accountDto.getPassword());
         dto.setName(accountDto.getName());
+
         return dto;
     }
 }

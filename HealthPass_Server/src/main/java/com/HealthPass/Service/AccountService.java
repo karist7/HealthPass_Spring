@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.HealthPass.Data.Entity.Account.toAccountDto;
+
 @RequiredArgsConstructor
 @Service
 public class AccountService {
@@ -42,28 +44,32 @@ public class AccountService {
     }
     public AccountDto login(HttpServletRequest request) throws IOException {
         AccountDto accountDto = new AccountDto();
-        accountDto.setEmail(request.getParameter("email"));
-        accountDto.setPassword(request.getParameter("password"));
 
-        Optional<String> optional = Optional.ofNullable(accountRepository.findPwd(accountDto.getEmail()));
-        System.out.println(optional.get());
-        if(accountRepository.findById(accountDto.getEmail()).isPresent()){
-            if(accountRepository.findPwd(accountDto.getEmail()).equals(accountDto.getPassword())){
+        String email = request.getParameter("email");
+        String pwd =  request.getParameter("password");
+        if(accountRepository.findById(email).isPresent()){
+            if(accountRepository.findPwd(email).equals(pwd)){
+                Account act = accountRepository.findInfo(email);
+
+                accountDto = toAccountDto(act);
+                System.out.println(accountDto.getName());
+                accountDto.setMessage("로그인 성공");
                 accountDto.setStatus(201);
+
             }
             else {
+                accountDto.setMessage("비밀번호 오류");
                 accountDto.setStatus(202);
             }
-            return accountDto;
+
 
         }
         else{
             accountDto.setMessage("아이디가 존재하지 않음");
             accountDto.setStatus(203);
-            return accountDto;
+
         }
-
-
+        return accountDto;
 
     }
     private AccountDto setAccount(HttpServletRequest request){
