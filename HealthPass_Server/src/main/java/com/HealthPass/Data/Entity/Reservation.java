@@ -15,33 +15,25 @@ public class Reservation {
     private int id;
 
     @Column(nullable = false)
-    @Email
-    private String email;
-
-    @Column(nullable = false)
     private String ex_name;
 
     @Column(nullable = false)
     private String seat;
 
     @Column(nullable = false)
-    private String user_name;
-
-    @Column(nullable = false)
-    private String user_phone;
-
-    @Column(nullable = false)
     private Date date;
+
+    @ManyToOne
+    @JoinColumn(name = "account_email", nullable = false)
+    private Account account;
 
     public static ReservationDto toReservationDto(Reservation reservation){
         ReservationDto reservationDto = new ReservationDto();
         reservationDto.setId(reservation.getId());
-        reservationDto.setEmail(reservation.getEmail());
         reservationDto.setSeat(reservation.getSeat());
         reservationDto.setEx_name(reservation.getEx_name());
-        reservationDto.setUser_name(reservation.getUser_name());
-        reservationDto.setUser_phone(reservation.getUser_phone());
         reservationDto.setDate(reservation.getDate());
+        reservationDto.setAccount(reservation.getAccount());
         return reservationDto;
     }
 }
