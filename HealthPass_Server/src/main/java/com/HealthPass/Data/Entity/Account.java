@@ -9,14 +9,9 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
+@ToString
 @Entity
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString(callSuper = true)
-
 public class Account {
     @Id
     @Email(message = "이메일 형식이 올바르지 않습니다.")
@@ -31,7 +26,6 @@ public class Account {
     private String password;
 
     @OneToMany(mappedBy = "account")
-    @ToString.Exclude
     private List<Reservation> reservations = new ArrayList<>();
 
     public static AccountDto toAccountDto(Account accountDto){

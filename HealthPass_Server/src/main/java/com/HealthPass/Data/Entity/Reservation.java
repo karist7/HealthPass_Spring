@@ -24,7 +24,7 @@ public class Reservation {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "account_email", nullable = false)
+    @JoinColumn(name = "account", nullable = false)
     private Account account;
 
     public static ReservationDto toReservationDto(Reservation reservation){
