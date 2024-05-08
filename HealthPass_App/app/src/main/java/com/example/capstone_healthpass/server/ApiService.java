@@ -17,7 +17,7 @@ import retrofit2.http.Query;
 public interface ApiService {
     @FormUrlEncoded
     @POST("/register/")
-    Call<JSONObject> requestPost(
+    Call<JSONObject> register(
             @Field("name") String name,
             @Field("phone") String phone,
             @Field("email") String email,
@@ -46,12 +46,12 @@ public interface ApiService {
             @Field("user_phone") String user_phone
     );
     @FormUrlEncoded
-    @POST("time/")
+    @POST("reserveTime/")
     Call<JSONObject> reservedTime(
             @Field("day") String day,
             @Field("time") String time,
             @Field("minute")String minute,
-            @Field("email") String email
+            @Field("email") Account account
 
     );
     @FormUrlEncoded

@@ -60,13 +60,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginAccount(final String email, final String password){
-
-
         retrofitManager.getApiService().loginPost(email,password).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-
-                Log.d("checkResponse","response "+response.code());
                 if (response.isSuccessful()) {
                     if (response.code() == 201) {
 
@@ -89,15 +85,15 @@ public class LoginActivity extends AppCompatActivity {
                         if (jsonResponse != null) {
 
                             try {
+
                                 email = jsonResponse.getString("email");
                                 phone = jsonResponse.getString("phone");
                                 name = jsonResponse.getString("name");
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
-                            Log.d("Email", email);
-                                // 여기서 email 변수에는 응답에서 추출한 이메일이 들어 있습니다.
-                            }
+
+                        }
                         Intent result = new Intent(LoginActivity.this, MainActivity.class);
                         result.putExtra("name",name);
                         result.putExtra("phone",phone);

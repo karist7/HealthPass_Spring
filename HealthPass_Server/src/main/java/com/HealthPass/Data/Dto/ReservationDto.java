@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Data
@@ -15,16 +16,22 @@ public class ReservationDto {
     private String ex_name;
     private String seat;
 
-    private Date date;
+    private LocalDate date;
 
-    private Account account;
+    private int hour;
+    private int minute;
+    private String email;
+
+    private int status;
 
     public static Reservation toReservation(ReservationDto reservationDto){
         Reservation reservation = new Reservation();
         reservation.setId(reservationDto.getId());
         reservation.setSeat(reservationDto.getSeat());
         reservation.setDate(reservationDto.getDate());
-        reservation.setAccount(reservationDto.getAccount());
+        reservation.setHour(reservationDto.getHour());
+        reservation.setMinute(reservationDto.getMinute());
+        reservation.setEmail(reservationDto.getEmail());
         return reservation;
     }
 }

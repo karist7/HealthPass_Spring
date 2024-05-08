@@ -143,7 +143,7 @@ public class ReserveDaytimeActivity extends Activity {
 
                 // 원하는 날짜 형식 지정
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
+                Log.d("dateTest", sdf.format(date));
                 // 날짜를 문자열로 변환
                 String formattedDate = sdf.format(date);
                 //다음 액티비티로 가는 것

@@ -109,11 +109,7 @@ public class JoinActivity extends AppCompatActivity {
         }
     }
     private void registerAccount(final String name,final String phone, final String email, final String password){
-
-
-
-
-        retrofitManager.getApiService().requestPost(name,phone,email,password).enqueue(new Callback<JSONObject>() {
+        retrofitManager.getApiService().register(name,phone,email,password).enqueue(new Callback<JSONObject>() {
 
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {

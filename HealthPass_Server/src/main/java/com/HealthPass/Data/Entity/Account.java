@@ -28,13 +28,13 @@ public class Account {
     @OneToMany(mappedBy = "account")
     private List<Reservation> reservations = new ArrayList<>();
 
-    public static AccountDto toAccountDto(Account accountDto){
+    public static AccountDto toAccountDto(Account account){
         AccountDto dto = new AccountDto();
-        dto.setEmail(accountDto.getEmail());
-        dto.setPhone(accountDto.getPhone());
-        dto.setPassword(accountDto.getPassword());
-        dto.setName(accountDto.getName());
-        dto.setReservations(accountDto.getReservations());
+        dto.setEmail(account.getEmail());
+        dto.setPhone(account.getPhone());
+        dto.setPassword(account.getPassword());
+        dto.setName(account.getName());
+        dto.setReservations(account.getReservations());
         return dto;
     }
 }

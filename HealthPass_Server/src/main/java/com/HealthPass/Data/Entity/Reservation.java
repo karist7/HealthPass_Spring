@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -21,10 +22,19 @@ public class Reservation {
     private String seat;
 
     @Column(nullable = false)
-    private Date date;
+    private LocalDate date;
+
+    @Column(nullable = false)
+    private int hour;
+
+    @Column(nullable = false)
+    private int minute;
+
+    @Column(nullable = false)
+    private String email;
 
     @ManyToOne
-    @JoinColumn(name = "account", nullable = false)
+    @JoinColumn(name = "account_id")
     private Account account;
 
     public static ReservationDto toReservationDto(Reservation reservation){
@@ -33,7 +43,9 @@ public class Reservation {
         reservationDto.setSeat(reservation.getSeat());
         reservationDto.setEx_name(reservation.getEx_name());
         reservationDto.setDate(reservation.getDate());
-        reservationDto.setAccount(reservation.getAccount());
+        reservationDto.setHour(reservation.getHour());
+        reservationDto.setMinute(reservation.getMinute());
+        reservationDto.setEmail(reservation.getEmail());
         return reservationDto;
     }
 }

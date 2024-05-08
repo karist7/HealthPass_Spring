@@ -30,7 +30,7 @@ public class AccountController {
     @ResponseBody
     public ResponseEntity<AccountDto> registerPage(HttpServletRequest request) throws IOException {
         AccountDto dto = accountService.register(request);
-        System.out.println(request.getReader());
+
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         if(dto.getStatus()==201){
