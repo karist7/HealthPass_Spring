@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +15,13 @@ import android.widget.Toast;
 
 import com.example.capstone_healthpass.server.RetrofitManager;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
 import org.json.JSONObject;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -229,11 +236,17 @@ public class ReserveMachineActivity extends Activity {
 
     }//onCreate 끝
     public void reservedMachine(final String day, final String time, final String minute, final String seat, final String ex_name){
-
-        retrofitManager.getApiService().reservedMachine(day,time,minute,seat,ex_name).enqueue(new Callback<JSONObject>() {
+        JsonObject json = new JsonObject();
+        json.addProperty("ex_name", ex_name);
+        json.addProperty("seat", seat);
+        json.addProperty("date",day);
+        json.addProperty("hour",time);
+        json.addProperty("minute",minute);
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+        retrofitManager.getApiService().reservedMachine(body).enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-
+                Log.d("jsonTest",new Gson().toJson(json));
                 if(response.code()==201) {
                     Intent intent = new Intent(ReserveMachineActivity.this, ReserveConfirmActivity.class);
 

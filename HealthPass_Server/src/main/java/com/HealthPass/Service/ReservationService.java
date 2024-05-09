@@ -1,6 +1,7 @@
 package com.HealthPass.Service;
 
 import com.HealthPass.Data.Dto.ReservationDto;
+import com.HealthPass.Data.Entity.Reservation;
 import com.HealthPass.Data.Repository.AccountRepository;
 import com.HealthPass.Data.Repository.ReservationRepository;
 import jakarta.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
@@ -19,11 +21,11 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class ReservationService {
     private final ReservationRepository reservationRepository;
-    private final AccountRepository accountRepository;
+
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
     ReservationDto dto = new ReservationDto();
     public ReservationDto reservedTime(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
+
         setReservation(request);
         String email = dto.getEmail();
         if(reservationRepository.findDate(email).isPresent()){
@@ -35,10 +37,11 @@ public class ReservationService {
 
         return dto;
     }
-    public ReservationDto reservedMachine(HttpServletRequest request) throws UnsupportedEncodingException {
-        setMachine(request);
+    public ReservationDto reservedMachine(ReservationDto reservation) throws UnsupportedEncodingException {
+
+        setMachine(reservation);
         dto.setStatus(0);
-        logger.debug(dto.getEmail());
+
         LocalDate date = dto.getDate();
         int hour = dto.getHour();
         int minute = dto.getMinute();
@@ -55,6 +58,7 @@ public class ReservationService {
     }
 
     public void setReservation(HttpServletRequest request) throws UnsupportedEncodingException {
+        request.setCharacterEncoding("UTF-8");
         String dateString = request.getParameter("day");
         LocalDate date = LocalDate.parse(dateString);
         dto.setDate(date);
@@ -64,9 +68,11 @@ public class ReservationService {
 
 
     }
-    public void setMachine(HttpServletRequest request) throws UnsupportedEncodingException{
-        dto.setEx_name(request.getParameter("ex_name"));
-        dto.setSeat(request.getParameter("seat"));
+    public void setMachine(ReservationDto reservation){
+
+        dto.setEx_name(reservation.getEx_name());
+        dto.setSeat(reservation.getSeat());
+        logger.debug(dto.getEx_name());
 
     }
 }

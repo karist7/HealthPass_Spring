@@ -2,6 +2,7 @@ package com.HealthPass.Controller;
 
 import com.HealthPass.Data.Dto.AccountDto;
 import com.HealthPass.Data.Dto.ReservationDto;
+import com.HealthPass.Data.Entity.Reservation;
 import com.HealthPass.Service.ReservationService;
 import jakarta.persistence.Column;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,10 +43,10 @@ public class ReservationController {
         }
 
     }
-    @PostMapping(value="/machine/")
+    @PostMapping(value="/machine/", produces="text/plain;charset=UTF-8")
     @ResponseBody
-    public ResponseEntity<ReservationDto> reserveMachine (HttpServletRequest request) throws IOException{
-        ReservationDto dto = reservationService.reservedMachine(request);
+    public ResponseEntity<ReservationDto> reserveMachine (@RequestBody ReservationDto reservation) throws IOException{
+        ReservationDto dto = reservationService.reservedMachine(reservation);
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
         if(dto.getStatus()==201){
