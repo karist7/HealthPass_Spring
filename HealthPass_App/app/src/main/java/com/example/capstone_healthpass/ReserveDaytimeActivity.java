@@ -169,9 +169,9 @@ public class ReserveDaytimeActivity extends Activity {
             }
         });
     }
-    public void reservedTime(final String day, final int time, final int minute, final String email){
+    public void reservedTime(final String date, final int hour, final int minute, final String email){
 
-        retrofitManager.getApiService().reservedTime(day,time,minute,email).enqueue(new Callback<JSONObject>() {
+        retrofitManager.getApiService().reservedTime(date,hour,minute,email).enqueue(new Callback<JSONObject>() {
 
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {

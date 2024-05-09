@@ -21,33 +21,52 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
     private final AccountRepository accountRepository;
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
+    ReservationDto dto = new ReservationDto();
     public ReservationDto reservedTime(HttpServletRequest request) throws UnsupportedEncodingException {
-        logger.debug(request.getParameter("day"));
-
-        logger.debug(request.getParameter("minute"));
-        logger.debug(request.getParameter("hour"));
-        ReservationDto reservationDto = setReservation(request);
-        String email = reservationDto.getEmail();
+        request.setCharacterEncoding("UTF-8");
+        setReservation(request);
+        String email = dto.getEmail();
         if(reservationRepository.findDate(email).isPresent()){
-            reservationDto.setStatus(202);
+            dto.setStatus(202);
+        }
+        else {
+            dto.setStatus(201);
+        }
+
+        return dto;
+    }
+    public ReservationDto reservedMachine(HttpServletRequest request) throws UnsupportedEncodingException {
+        setMachine(request);
+        dto.setStatus(0);
+        logger.debug(dto.getEmail());
+        LocalDate date = dto.getDate();
+        int hour = dto.getHour();
+        int minute = dto.getMinute();
+        String seat = dto.getSeat();
+        String ex_name = dto.getEx_name();
+        //예약 내역이 존재할 경우
+        if(reservationRepository.findResv(date,hour,minute,seat,ex_name).isPresent()){
+            dto.setStatus(202);
         }
         else{
-            reservationDto.setStatus(201);
+            dto.setStatus(201);
         }
-
-        return reservationDto;
+        return dto;
     }
 
-    public ReservationDto setReservation(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
-        ReservationDto reservationDto = new ReservationDto();
+    public void setReservation(HttpServletRequest request) throws UnsupportedEncodingException {
         String dateString = request.getParameter("day");
         LocalDate date = LocalDate.parse(dateString);
-        reservationDto.setDate(date);
-        reservationDto.setHour(Integer.parseInt(request.getParameter("hour")));
-        reservationDto.setMinute(Integer.parseInt(request.getParameter("minute")));
-        reservationDto.setEmail(request.getParameter("email"));
-        return reservationDto;
+        dto.setDate(date);
+        dto.setHour(Integer.parseInt(request.getParameter("hour")));
+        dto.setMinute(Integer.parseInt(request.getParameter("minute")));
+        dto.setEmail(request.getParameter("email"));
+
+
+    }
+    public void setMachine(HttpServletRequest request) throws UnsupportedEncodingException{
+        dto.setEx_name(request.getParameter("ex_name"));
+        dto.setSeat(request.getParameter("seat"));
 
     }
 }

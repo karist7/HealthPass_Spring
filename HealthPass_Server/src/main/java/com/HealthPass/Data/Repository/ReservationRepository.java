@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Optional;
 
@@ -14,5 +15,10 @@ import java.util.Optional;
 public interface ReservationRepository extends JpaRepository<Reservation, String> {
     @Query("Select p.date from Reservation as p where p.email= :email")
     Optional<Reservation> findDate(@Param("email") String email);
+
+    @Query("SELECT p FROM Reservation p WHERE p.date = :date AND p.hour = :hour AND p.minute = :minute AND p.seat = :seat AND p.ex_name = :ex_name")
+    Optional<Reservation> findResv(@Param("date") LocalDate date, @Param("hour") int hour, @Param("minute") int minute,
+                                   @Param("seat") String seat, @Param("ex_name") String ex_name);
+
 
 }

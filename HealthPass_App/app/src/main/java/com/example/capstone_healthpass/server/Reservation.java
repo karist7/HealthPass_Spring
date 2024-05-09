@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName;
 import retrofit2.http.Field;
 
 public class Reservation {
-    @SerializedName("day")
-    private String day;
+    @SerializedName("date")
+    private String date;
     @SerializedName("time")
     private String time;
     @SerializedName("minute")
@@ -28,7 +28,7 @@ public class Reservation {
     private String user_phone;
 
     public String getDay() {
-        return day;
+        return date;
     }
 
     public String getTime() {

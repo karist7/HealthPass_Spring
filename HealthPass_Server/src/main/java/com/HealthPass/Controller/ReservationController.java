@@ -27,7 +27,7 @@ public class ReservationController {
 
     @PostMapping(value="/reserveTime/")
     @ResponseBody
-    public ResponseEntity<ReservationDto> reservation (HttpServletRequest request) throws IOException {
+    public ResponseEntity<ReservationDto> reserveTime (HttpServletRequest request) throws IOException {
         ReservationDto dto = reservationService.reservedTime(request);
 
         HttpHeaders header = new HttpHeaders();
@@ -40,6 +40,20 @@ public class ReservationController {
             return new ResponseEntity<>(dto,header, HttpStatus.ACCEPTED);
         }
 
+    }
+    @PostMapping(value="/machine/")
+    @ResponseBody
+    public ResponseEntity<ReservationDto> reserveMachine (HttpServletRequest request) throws IOException{
+        ReservationDto dto = reservationService.reservedMachine(request);
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        if(dto.getStatus()==201){
+            return new ResponseEntity<>(dto,header, HttpStatus.CREATED);
+
+        }
+        else{
+            return new ResponseEntity<>(dto,header, HttpStatus.ACCEPTED);
+        }
     }
 
 }
