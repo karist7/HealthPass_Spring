@@ -23,7 +23,7 @@ public class ReservationService {
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
     public ReservationDto reservedTime(HttpServletRequest request) throws UnsupportedEncodingException {
         logger.debug(request.getParameter("day"));
-        
+
         logger.debug(request.getParameter("minute"));
         logger.debug(request.getParameter("hour"));
         ReservationDto reservationDto = setReservation(request);

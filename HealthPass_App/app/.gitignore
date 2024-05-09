@@ -1,1 +1,3 @@
 /build
+# RetrofitManager 클래스를 gitignore에 등록
+**/RetrofitManager.class
