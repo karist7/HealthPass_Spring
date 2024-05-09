@@ -49,7 +49,7 @@ public class MYpageActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
-        reservedInfos(MainActivity.email);
+        reservedInfos(MainActivity.account.getEmail());
         button = findViewById(R.id.reserveCancel);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,7 +93,7 @@ public class MYpageActivity  extends AppCompatActivity {
 
                         break;
                     case R.id.navigation_mypage:
-                        if(MainActivity.userName=="") {
+                        if(MainActivity.account.getName()=="") {
                             Toast.makeText(MYpageActivity.this, "로그인 후 이용 바랍니다.", Toast.LENGTH_SHORT).show();
                         }else {
                             Intent intent1 = new Intent(MYpageActivity.this, MYpageActivity.class);

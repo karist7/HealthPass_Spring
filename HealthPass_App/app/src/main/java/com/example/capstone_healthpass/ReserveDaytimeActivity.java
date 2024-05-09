@@ -149,8 +149,8 @@ public class ReserveDaytimeActivity extends Activity {
                 //다음 액티비티로 가는 것
                 //Intent
                 String day = formattedDate;
-                String hour = tvHour.getText().toString()+"시";
-                String minute = tvMinute.getText().toString()+"분";
+                int hour = Integer.parseInt(tvHour.getText().toString());
+                int minute = Integer.parseInt(tvMinute.getText().toString());
                 Calendar currentCalendar = Calendar.getInstance();
                 int currentYear = currentCalendar.get(Calendar.YEAR);
                 int currentMonth = currentCalendar.get(Calendar.MONTH);
@@ -164,16 +164,18 @@ public class ReserveDaytimeActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "이전 날짜는 선택할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    reservedTime(day,hour,minute,MainActivity.email);
+                    reservedTime(day,hour,minute,MainActivity.account.getEmail());
 
             }
         });
     }
-    public void reservedTime(final String day, final String time, final String minute, final String email){
+    public void reservedTime(final String day, final int time, final int minute, final String email){
 
-        retrofitManager.getApiService().reservedTime(day,time,minute,MainActivity.email).enqueue(new Callback<JSONObject>() {
+        retrofitManager.getApiService().reservedTime(day,time,minute,email).enqueue(new Callback<JSONObject>() {
+
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
+
                 if (response.code()==201){
                     Intent intent = new Intent(ReserveDaytimeActivity.this, ReserveMachineActivity.class); //다음 클래스 정보 입력
 

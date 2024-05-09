@@ -74,9 +74,9 @@ public class ReserveMachineActivity extends Activity {
         //예약자 명,연락처 dialog를 위한 변수 연결
         tvName = (TextView)findViewById(R.id.tvName);
         tvPhone = (TextView)findViewById(R.id.tvPhone);
-        if(MainActivity.userName!=""&&MainActivity.phone!=""){
-            tvName.setText(MainActivity.userName);
-            tvPhone.setText(MainActivity.phone);
+        if(MainActivity.account.getName()!=""&&MainActivity.account.getPhone()!=""){
+            tvName.setText(MainActivity.account.getName());
+            tvPhone.setText(MainActivity.account.getPhone());
         }
         else{
             tvName.setText("");

@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                         String email = null;
                         String phone = null;
                         String name = null;
+                        String password = null;
                         if (jsonResponse != null) {
 
                             try {
@@ -89,6 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                                 email = jsonResponse.getString("email");
                                 phone = jsonResponse.getString("phone");
                                 name = jsonResponse.getString("name");
+                                password = jsonResponse.getString("password");
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
@@ -98,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                         result.putExtra("name",name);
                         result.putExtra("phone",phone);
                         result.putExtra("email",email);
+                        result.putExtra("password",password);
                         Toast.makeText(LoginActivity.this, name+"님, 반갑습니다.", Toast.LENGTH_SHORT).show();
                         result.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(result);

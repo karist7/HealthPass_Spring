@@ -122,7 +122,7 @@ public class ReserveConfirmActivity  extends Activity {
     }
     public void reserveEx(final String day, final String time, final String minute,final String seat,final String ex_name){
 
-        retrofitManager.getApiService().reserved(day,time,minute,MainActivity.email,seat,ex_name,MainActivity.userName,MainActivity.phone).enqueue(new Callback<JSONObject>() {
+        retrofitManager.getApiService().reserved(day,time,minute,MainActivity.account.getEmail(), seat,ex_name,MainActivity.account.getName(), MainActivity.account.getPhone()).enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
 

@@ -46,7 +46,7 @@ public class RecommendationActivity extends Activity  {
 
                         break;
                     case R.id.navigation_mypage:
-                        if(MainActivity.userName=="") {
+                        if(MainActivity.account.getName()=="") {
                             Toast.makeText(RecommendationActivity.this, "로그인 후 이용 바랍니다.", Toast.LENGTH_SHORT).show();
                         }else {
                             Intent intent1 = new Intent(RecommendationActivity.this, MYpageActivity.class);

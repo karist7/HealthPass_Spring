@@ -49,7 +49,7 @@ public class SelectActivity extends AppCompatActivity {
 
                         break;
                     case R.id.navigation_mypage:
-                        if(MainActivity.userName=="") {
+                        if(MainActivity.account.getName()=="") {
                             Toast.makeText(SelectActivity.this, "로그인 후 이용 바랍니다.", Toast.LENGTH_SHORT).show();
                         }else {
                             Intent intent1 = new Intent(SelectActivity.this, MYpageActivity.class);

@@ -82,7 +82,7 @@ public class ScanQR extends AppCompatActivity {
         }
     }
     private void checkInfo(){
-        retrofitManager.getApiService().reservedInfo(MainActivity.email).enqueue(new Callback<List<Reservation>>() {
+        retrofitManager.getApiService().reservedInfo(MainActivity.account.getEmail()).enqueue(new Callback<List<Reservation>>() {
             @Override
             public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
                 if(response.code()==201){

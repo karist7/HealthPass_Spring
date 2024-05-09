@@ -49,9 +49,9 @@ public interface ApiService {
     @POST("reserveTime/")
     Call<JSONObject> reservedTime(
             @Field("day") String day,
-            @Field("time") String time,
-            @Field("minute")String minute,
-            @Field("email") Account account
+            @Field("hour") int hour,
+            @Field("minute")int minute,
+            @Field("email") String email
 
     );
     @FormUrlEncoded

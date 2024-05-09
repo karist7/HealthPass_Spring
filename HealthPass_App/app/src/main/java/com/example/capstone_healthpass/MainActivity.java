@@ -16,13 +16,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstone_healthpass.DB.DataBaseHelper;
+import com.example.capstone_healthpass.server.Account;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     boolean flag;
-    public static String userName="";
-    public static String phone="";
-    public static String email="";
+
+    public static Account account = new Account();
+
     private Button join_Btn;
     private Button reserve_btn;
     private Button routine_btn;
@@ -36,6 +37,10 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        account.setName("");
+        account.setEmail("");
+        account.setPhone("");
+        account.setPassword("");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -55,9 +60,11 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialogInterface, int i) {
                                 Toast.makeText(MainActivity.this, "로그아웃 완료했습니다..", Toast.LENGTH_SHORT).show();
-                                MainActivity.userName = "";
-                                MainActivity.phone="";
-                                MainActivity.email="";
+                                account.setName("");
+                                account.setEmail("");
+                                account.setPhone("");
+                                account.setPassword("");
+
                                 Intent logout_intent = new Intent(MainActivity.this, MainActivity.class);
                                 login_btn.setVisibility(View.VISIBLE);
                                 join_Btn.setVisibility(View.VISIBLE);
@@ -79,25 +86,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if (intent != null && intent.hasExtra("name")){
-            userName = intent.getStringExtra("name");
-            phone = intent.getStringExtra("phone");
-            email = intent.getStringExtra("email");
+            account.setName(intent.getStringExtra("name"));
+            account.setEmail(intent.getStringExtra("email"));
+            account.setPhone(intent.getStringExtra("phone"));
+            account.setPassword(intent.getStringExtra("password"));
 
-            name.setText(userName);
+            name.setText(account.getName());
             login_btn.setVisibility(View.INVISIBLE);
             join_Btn.setVisibility(View.INVISIBLE);
             logout_btn.setVisibility(View.VISIBLE);
 
         }
-        else if(userName!="") {
-            name.setText(userName);
+        else if(account.getName()!="") {
+            name.setText("");
             Log.d("names",name.getText().toString());
             login_btn.setVisibility(View.INVISIBLE);
             join_Btn.setVisibility(View.INVISIBLE);
             logout_btn.setVisibility(View.VISIBLE);
         }
         else{
-            MainActivity.userName="";
+            account.setName("");
             name.setText("");
             login_btn.setVisibility(View.VISIBLE);
             join_Btn.setVisibility(View.VISIBLE);
@@ -117,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(intent);//다음 액티비티 화면에
                         break;
                     case R.id.navigation_mypage:
-                        if(userName=="") {
+                        if(account.getName()=="") {
                             Toast.makeText(MainActivity.this, "로그인 후 이용 바랍니다.", Toast.LENGTH_SHORT).show();
                         }else {
                             Intent intent1 = new Intent(MainActivity.this, MYpageActivity.class);
@@ -168,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //다음 액티비티로 가는 것
                 //Intent
-                if(userName=="") {
+                if(account.getName()=="") {
                     Toast.makeText(MainActivity.this, "로그인 후 이용 바랍니다.", Toast.LENGTH_SHORT).show();
                 }else {
                     Intent intent = new Intent(MainActivity.this, ReserveDaytimeActivity.class);
