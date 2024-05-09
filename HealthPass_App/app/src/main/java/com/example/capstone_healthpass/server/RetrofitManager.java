@@ -12,7 +12,7 @@ public class RetrofitManager {
     private ApiService apiService;
 
     Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl("http://220.69.208.121:8080")
+            .baseUrl("http://220.69.208.121:8080aa")
             .addConverterFactory(GsonConverterFactory.create());
 
     public RetrofitManager() {
