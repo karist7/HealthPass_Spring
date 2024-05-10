@@ -123,7 +123,7 @@ public class JoinActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                Log.d("checkResponse","response "+response.body());
+                Log.d("jsonTest",new Gson().toJson(json));
 
                 if(response.code()==201) {
                     Toast.makeText(JoinActivity.this, "회원가입 완료", Toast.LENGTH_SHORT).show();

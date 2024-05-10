@@ -23,8 +23,12 @@ public class AccountService {
     private final AccountRepository accountRepository;
 
     public AccountDto register(AccountDto accountDto) {
-        AccountDto dto = setAccount(accountDto);
-        Account account = dto.accountObject(dto);
+        AccountDto dto = new AccountDto();
+        dto.setEmail(accountDto.getEmail());
+        dto.setName(accountDto.getName());
+        dto.setPhone(accountDto.getPhone());
+        dto.setPassword(accountDto.getPassword());
+        Account account = AccountDto.toAccount(dto);
         if(accountRepository.findById(dto.getEmail()).isPresent()){
             dto.setMessage("중복된 아이디");
             dto.setStatus(202);
@@ -36,10 +40,10 @@ public class AccountService {
         }
         return dto;
     }
-    public AccountDto login(HttpServletRequest request) throws IOException {
-        AccountDto accountDto = new AccountDto();
-        String email = request.getParameter("email");
-        String pwd =  request.getParameter("password");
+    public AccountDto login(AccountDto accountDto) throws IOException {
+
+        String email = accountDto.getEmail();
+        String pwd = accountDto.getPassword();
         if(accountRepository.findById(email).isPresent()){
             if(accountRepository.findPwd(email).equals(pwd)){
                 Account act = accountRepository.findInfo(email);
@@ -60,12 +64,5 @@ public class AccountService {
         return accountDto;
 
     }
-    private AccountDto setAccount(AccountDto accountDto){
-        AccountDto account = new AccountDto();
-        account.setEmail(accountDto.getEmail());
-        account.setName(account.getName());
-        account.setPhone(account.getPhone());
-        account.setPassword(account.getPassword());
-        return account;
-    }
+
 }

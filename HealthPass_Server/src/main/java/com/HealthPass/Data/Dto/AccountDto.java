@@ -23,7 +23,7 @@ public class AccountDto {
 
     private List<Reservation> reservations = new ArrayList<>();
 
-    public static Account accountObject(AccountDto account){
+    public static Account toAccount(AccountDto account){
         Account act = new Account();
         act.setEmail(account.getEmail());
         act.setName(account.getName());

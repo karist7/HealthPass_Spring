@@ -45,8 +45,8 @@ public class AccountController {
     @Operation(summary = "로그인 확인", description = "로그인 테스트.", tags = { "Login Controller" })
     @PostMapping(value ="/login/")
     @ResponseBody
-    public ResponseEntity<AccountDto> loginPage(HttpServletRequest request)throws IOException{
-        AccountDto dto = accountService.login(request);
+    public ResponseEntity<AccountDto> loginPage(@RequestBody AccountDto accountDto)throws IOException{
+        AccountDto dto = accountService.login(accountDto);
 
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));

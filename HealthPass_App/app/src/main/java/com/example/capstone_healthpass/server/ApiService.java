@@ -24,11 +24,10 @@ public interface ApiService {
             @Body RequestBody body
     );
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json; charset=utf-8")
     @POST("/login/")
     Call<ResponseBody> loginPost(
-            @Field("email") String email,
-            @Field("password") String password
+            @Body RequestBody body
     );
 
 

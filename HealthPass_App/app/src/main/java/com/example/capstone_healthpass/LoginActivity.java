@@ -12,6 +12,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstone_healthpass.server.RetrofitManager;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.json.JSONException;
@@ -19,6 +21,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -60,7 +64,14 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginAccount(final String email, final String password){
-        retrofitManager.getApiService().loginPost(email,password).enqueue(new Callback<ResponseBody>() {
+        JsonObject json = new JsonObject();
+
+        json.addProperty("password",password);
+        json.addProperty("email",email);
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+
+        retrofitManager.getApiService().loginPost(body).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
