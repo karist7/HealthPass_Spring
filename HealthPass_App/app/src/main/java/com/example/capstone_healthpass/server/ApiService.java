@@ -32,17 +32,11 @@ public interface ApiService {
 
 
 
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json; charset=utf-8")
     @POST("/reservation/")
     Call<JSONObject> reserved(
-            @Field("day") String day,
-            @Field("time") String time,
-            @Field("minute")String minute,
-            @Field("email") String email,
-            @Field("seat") String seat,
-            @Field("ex_name") String ex_name,
-            @Field("user_name") String user_name,
-            @Field("user_phone") String user_phone
+
+            @Body RequestBody body
     );
     @Headers("Content-Type: application/json; charset=utf-8")
     @POST("reserveTime/")

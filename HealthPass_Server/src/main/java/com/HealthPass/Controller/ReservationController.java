@@ -57,5 +57,22 @@ public class ReservationController {
             return new ResponseEntity<>(dto,header, HttpStatus.ACCEPTED);
         }
     }
+    @PostMapping(value="/reservation/", produces="text/plain;charset=UTF-8")
+    @ResponseBody
+    public ResponseEntity<ReservationDto> reserved(@RequestBody ReservationDto reservationDto) throws  IOException{
+        ReservationDto dto = reservationService.reservation();
+        HttpHeaders header = new HttpHeaders();
+        header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        if(dto.getStatus()==201){
+            return new ResponseEntity<>(dto,header, HttpStatus.CREATED);
+
+        }
+        else if(dto.getStatus()==202){
+            return new ResponseEntity<>(dto,header, HttpStatus.ACCEPTED);
+        }
+        else{
+            return new ResponseEntity<>(dto,header, HttpStatus.NON_AUTHORITATIVE_INFORMATION);
+        }
+    }
 
 }

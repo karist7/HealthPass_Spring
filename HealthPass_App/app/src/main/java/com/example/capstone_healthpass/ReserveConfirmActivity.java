@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.capstone_healthpass.server.RetrofitManager;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -20,6 +22,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -93,36 +97,38 @@ public class ReserveConfirmActivity  extends Activity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
                 // 날짜를 문자열로 변환
-                String formattedDate = sdf.format(date);
-                //다음 액티비티로 가는 것
-                //Intent
-                Log.d("day",formattedDate);
-                String day = formattedDate;
-                String time = tvHour3.getText().toString()+"시";
+                String day = sdf.format(date);
+
+                String time = tvHour3.getText().toString();
                 String seat = seat2.getText().toString();
 
                 int minute = Integer.parseInt(tvMinute3.getText().toString());
 
                 if(minute < 30){
-                    strMinute="0분";
+                    strMinute="0";
                 }
                 else{
-                    strMinute="30분";
+                    strMinute="30";
                 }
                 String ex_name = personnel2.getText().toString();
                 reserveEx(day,time,strMinute,seat,ex_name);
 
-
-
             }
         });
 
-
-
     }
     public void reserveEx(final String day, final String time, final String minute,final String seat,final String ex_name){
-
-        retrofitManager.getApiService().reserved(day,time,minute,MainActivity.account.getEmail(), seat,ex_name,MainActivity.account.getName(), MainActivity.account.getPhone()).enqueue(new Callback<JSONObject>() {
+        JsonObject json = new JsonObject();
+        json.addProperty("ex_name", ex_name);
+        json.addProperty("seat", seat);
+        json.addProperty("date",day);
+        json.addProperty("hour",time);
+        json.addProperty("minute",minute);
+        json.addProperty("email",MainActivity.account.getEmail());
+        json.addProperty("phone",MainActivity.account.getPhone());
+        json.addProperty("name",MainActivity.account.getName());
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+        retrofitManager.getApiService().reserved(body).enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
 

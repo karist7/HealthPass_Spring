@@ -55,7 +55,12 @@ public class ReservationService {
         }
         return dto;
     }
+    public ReservationDto reservation(){
+        Reservation resv = ReservationDto.toReservation(dto);
 
+        reservationRepository.save(resv);
+        return dto;
+    }
     public void setReservation(ReservationDto reservation)  {
 
         String dateString = reservation.getDate().toString();
