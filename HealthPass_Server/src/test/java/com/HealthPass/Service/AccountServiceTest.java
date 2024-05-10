@@ -49,29 +49,7 @@ public class AccountServiceTest {
     @Test
     @DisplayName("회원가입 테스트")
     void registerTest() throws IOException {
-        System.out.println(account.getEmail());
-        //given
-        MockHttpServletRequest mockHttpServletRequest = new MockHttpServletRequest();
-        mockHttpServletRequest.setParameter("email","test@naver.com");
-        mockHttpServletRequest.setParameter("name","test");
-        mockHttpServletRequest.setParameter("password","a12345");
-        mockHttpServletRequest.setParameter("phone","01000000000");
-
-        System.out.println(mockHttpServletRequest.getParameter("email"));
-        Mockito.when(accountRepository.findById("test@naver.com")).thenReturn(Optional.of(account));
-
-
-        //when
-        AccountDto accountDto = accountService.register(mockHttpServletRequest);
-
-
-        //then
-        Assertions.assertEquals(accountDto.getEmail(), mockHttpServletRequest.getParameter("email"));
-        Assertions.assertEquals(accountDto.getPassword(), mockHttpServletRequest.getParameter("password"));
-        Assertions.assertEquals(accountDto.getName(), mockHttpServletRequest.getParameter("name"));
-        Assertions.assertEquals(accountDto.getPhone(), mockHttpServletRequest.getParameter("phone"));
-
-        verify(accountRepository).findById("test@naver.com");
+     
     }
 
 

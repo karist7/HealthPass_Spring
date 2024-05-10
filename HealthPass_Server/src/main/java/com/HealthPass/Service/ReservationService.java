@@ -24,9 +24,9 @@ public class ReservationService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
     ReservationDto dto = new ReservationDto();
-    public ReservationDto reservedTime(HttpServletRequest request) throws UnsupportedEncodingException {
+    public ReservationDto reservedTime(ReservationDto reservation) throws UnsupportedEncodingException {
 
-        setReservation(request);
+        setReservation(reservation);
         String email = dto.getEmail();
         if(reservationRepository.findDate(email).isPresent()){
             dto.setStatus(202);
@@ -41,7 +41,6 @@ public class ReservationService {
 
         setMachine(reservation);
         dto.setStatus(0);
-
         LocalDate date = dto.getDate();
         int hour = dto.getHour();
         int minute = dto.getMinute();
@@ -57,14 +56,14 @@ public class ReservationService {
         return dto;
     }
 
-    public void setReservation(HttpServletRequest request) throws UnsupportedEncodingException {
-        request.setCharacterEncoding("UTF-8");
-        String dateString = request.getParameter("day");
+    public void setReservation(ReservationDto reservation)  {
+
+        String dateString = reservation.getDate().toString();
         LocalDate date = LocalDate.parse(dateString);
         dto.setDate(date);
-        dto.setHour(Integer.parseInt(request.getParameter("hour")));
-        dto.setMinute(Integer.parseInt(request.getParameter("minute")));
-        dto.setEmail(request.getParameter("email"));
+        dto.setHour(reservation.getHour());
+        dto.setMinute(reservation.getMinute());
+        dto.setEmail(reservation.getEmail());
 
 
     }

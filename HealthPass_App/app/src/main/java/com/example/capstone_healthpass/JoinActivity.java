@@ -15,9 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -109,7 +112,14 @@ public class JoinActivity extends AppCompatActivity {
         }
     }
     private void registerAccount(final String name,final String phone, final String email, final String password){
-        retrofitManager.getApiService().register(name,phone,email,password).enqueue(new Callback<JSONObject>() {
+        JsonObject json = new JsonObject();
+        json.addProperty("name", name);
+        json.addProperty("phone", phone);
+        json.addProperty("password",password);
+        json.addProperty("email",email);
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+        retrofitManager.getApiService().register(body).enqueue(new Callback<JSONObject>() {
 
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {

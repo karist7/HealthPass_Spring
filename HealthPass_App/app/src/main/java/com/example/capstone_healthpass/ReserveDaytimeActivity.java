@@ -14,13 +14,18 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.capstone_healthpass.server.RetrofitManager;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -145,10 +150,8 @@ public class ReserveDaytimeActivity extends Activity {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 Log.d("dateTest", sdf.format(date));
                 // 날짜를 문자열로 변환
-                String formattedDate = sdf.format(date);
-                //다음 액티비티로 가는 것
-                //Intent
-                String day = formattedDate;
+                String day = sdf.format(date);
+
                 int hour = Integer.parseInt(tvHour.getText().toString());
                 int minute = Integer.parseInt(tvMinute.getText().toString());
                 Calendar currentCalendar = Calendar.getInstance();
@@ -170,12 +173,18 @@ public class ReserveDaytimeActivity extends Activity {
         });
     }
     public void reservedTime(final String date, final int hour, final int minute, final String email){
+        JsonObject json = new JsonObject();
+        json.addProperty("date", date);
+        json.addProperty("hour", hour);
+        json.addProperty("minute",minute);
+        json.addProperty("email",email);
 
-        retrofitManager.getApiService().reservedTime(date,hour,minute,email).enqueue(new Callback<JSONObject>() {
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+        retrofitManager.getApiService().reservedTime(body).enqueue(new Callback<JSONObject>() {
 
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-
+                Log.d("DayTimeSuccess",response.code()+"");
                 if (response.code()==201){
                     Intent intent = new Intent(ReserveDaytimeActivity.this, ReserveMachineActivity.class); //다음 클래스 정보 입력
 
@@ -191,7 +200,7 @@ public class ReserveDaytimeActivity extends Activity {
 
             @Override
             public void onFailure(Call<JSONObject> call, Throwable t) {
-                Log.d("Error",t.toString());
+                Log.d("DayTimeErrorError",t.toString());
             }
         });
     }

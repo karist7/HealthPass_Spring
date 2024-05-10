@@ -18,13 +18,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface ApiService {
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json; charset=utf-8")
     @POST("/register/")
     Call<JSONObject> register(
-            @Field("name") String name,
-            @Field("phone") String phone,
-            @Field("email") String email,
-            @Field("password") String password
+            @Body RequestBody body
     );
 
     @FormUrlEncoded
@@ -48,13 +45,10 @@ public interface ApiService {
             @Field("user_name") String user_name,
             @Field("user_phone") String user_phone
     );
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json; charset=utf-8")
     @POST("reserveTime/")
     Call<JSONObject> reservedTime(
-            @Field("day") String day,
-            @Field("hour") int hour,
-            @Field("minute")int minute,
-            @Field("email") String email
+            @Body RequestBody body
 
     );
     @Headers("Content-Type: application/json; charset=utf-8")

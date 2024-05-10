@@ -217,10 +217,8 @@ public class ReserveMachineActivity extends Activity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
                     // 날짜를 문자열로 변환
-                    String formattedDate = sdf.format(date);
-                    //다음 액티비티로 가는 것
-                    //Intent
-                    String day = formattedDate;
+                    String day = sdf.format(date);
+
 
                     String hour = tvHour2.getText().toString();
                     String minute = tvMinute2.getText().toString();

@@ -29,8 +29,8 @@ public class ReservationController {
 
     @PostMapping(value="/reserveTime/")
     @ResponseBody
-    public ResponseEntity<ReservationDto> reserveTime (HttpServletRequest request) throws IOException {
-        ReservationDto dto = reservationService.reservedTime(request);
+    public ResponseEntity<ReservationDto> reserveTime (@RequestBody ReservationDto reservation) throws IOException {
+        ReservationDto dto = reservationService.reservedTime(reservation);
 
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));

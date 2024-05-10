@@ -22,8 +22,8 @@ import static com.HealthPass.Data.Entity.Account.toAccountDto;
 public class AccountService {
     private final AccountRepository accountRepository;
 
-    public AccountDto register(HttpServletRequest request) throws IOException {
-        AccountDto dto = setAccount(request);
+    public AccountDto register(AccountDto accountDto) {
+        AccountDto dto = setAccount(accountDto);
         Account account = dto.accountObject(dto);
         if(accountRepository.findById(dto.getEmail()).isPresent()){
             dto.setMessage("중복된 아이디");
@@ -60,12 +60,12 @@ public class AccountService {
         return accountDto;
 
     }
-    private AccountDto setAccount(HttpServletRequest request){
+    private AccountDto setAccount(AccountDto accountDto){
         AccountDto account = new AccountDto();
-        account.setEmail(request.getParameter("email"));
-        account.setName(request.getParameter("name"));
-        account.setPhone(request.getParameter("phone"));
-        account.setPassword(request.getParameter("password"));
+        account.setEmail(accountDto.getEmail());
+        account.setName(account.getName());
+        account.setPhone(account.getPhone());
+        account.setPassword(account.getPassword());
         return account;
     }
 }

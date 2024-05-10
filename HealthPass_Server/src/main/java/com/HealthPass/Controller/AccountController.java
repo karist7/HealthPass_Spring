@@ -28,8 +28,8 @@ public class AccountController {
     @Operation(summary = "회원 가입 확인", description = "회원 가입 테스트.", tags = { "Register Controller" })
     @PostMapping(value ="/register/")
     @ResponseBody
-    public ResponseEntity<AccountDto> registerPage(HttpServletRequest request) throws IOException {
-        AccountDto dto = accountService.register(request);
+    public ResponseEntity<AccountDto> registerPage(@RequestBody AccountDto accountDto) throws IOException {
+        AccountDto dto = accountService.register(accountDto);
 
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
