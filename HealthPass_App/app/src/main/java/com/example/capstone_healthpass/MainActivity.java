@@ -86,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if (intent != null && intent.hasExtra("name")){
+            Log.d("accountTest", account.getName());
             account.setName(intent.getStringExtra("name"));
             account.setEmail(intent.getStringExtra("email"));
             account.setPhone(intent.getStringExtra("phone"));
@@ -98,15 +99,20 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else if(account.getName()!="") {
-            name.setText("");
+            name.setText(account.getName());
+            Log.d("accountTest2", account.getName());
             Log.d("names",name.getText().toString());
             login_btn.setVisibility(View.INVISIBLE);
             join_Btn.setVisibility(View.INVISIBLE);
             logout_btn.setVisibility(View.VISIBLE);
         }
         else{
+            Log.d("accountTest3", account.getName());
             account.setName("");
             name.setText("");
+            account.setEmail("");
+            account.setPhone("");
+            account.setPassword("");
             login_btn.setVisibility(View.VISIBLE);
             join_Btn.setVisibility(View.VISIBLE);
         }

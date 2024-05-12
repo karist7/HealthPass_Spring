@@ -28,7 +28,10 @@ public class ReservationService {
 
         setReservation(reservation);
         String email = dto.getEmail();
-        if(reservationRepository.findDate(email).isPresent()){
+        LocalDate date = dto.getDate();
+        int hour = dto.getHour();
+        int minute = dto.getMinute();
+        if(reservationRepository.duplicateMachine(email,date,hour,minute).isPresent()){
             dto.setStatus(202);
         }
         else {
@@ -46,6 +49,7 @@ public class ReservationService {
         int minute = dto.getMinute();
         String seat = dto.getSeat();
         String ex_name = dto.getEx_name();
+        logger.info(dto.getEx_name());
         //예약 내역이 존재할 경우
         if(reservationRepository.findResv(date,hour,minute,seat,ex_name).isPresent()){
             dto.setStatus(202);
@@ -55,10 +59,32 @@ public class ReservationService {
         }
         return dto;
     }
-    public ReservationDto reservation(){
+    public ReservationDto reservation(ReservationDto reservationDto){
+        dto.setUser_phone(reservationDto.getUser_phone());
+        dto.setUser_name(reservationDto.getUser_name());
+        dto.setStatus(0);
+        logger.trace(reservationDto.getUser_phone());
+        logger.trace(reservationDto.getUser_name());
+        logger.trace(dto.getEmail());
+        logger.trace(dto.getEx_name());
+        System.out.println(dto.getEmail());
         Reservation resv = ReservationDto.toReservation(dto);
+        String email = dto.getEmail();
+        LocalDate date =dto.getDate();
+        int hour = dto.getHour();
+        int minute = dto.getMinute();
 
-        reservationRepository.save(resv);
+        logger.debug(email);
+        if(reservationRepository.duplicateMachine(email,date, hour, minute).isPresent()){
+            dto.setStatus(202);
+        }
+        else if(reservationRepository.duplicateTime(date,hour,minute).isPresent()){
+            dto.setStatus(203);
+        }
+        else{
+            dto.setStatus(201);
+            reservationRepository.save(resv);
+        }
         return dto;
     }
     public void setReservation(ReservationDto reservation)  {
@@ -76,7 +102,7 @@ public class ReservationService {
 
         dto.setEx_name(reservation.getEx_name());
         dto.setSeat(reservation.getSeat());
-        logger.debug(dto.getEx_name());
+
 
     }
 }

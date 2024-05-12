@@ -57,6 +57,10 @@ public class ReserveEndActivity extends Activity {
                 //다시 메인 액티비티로 가는 것
                 //Intent
                 Intent intent = new Intent(ReserveEndActivity.this, MainActivity.class);
+                intent.putExtra("name",tvName3.getText().toString());
+                intent.putExtra("phone", MainActivity.account.getPhone());
+                intent.putExtra("email", MainActivity.account.getEmail());
+                intent.putExtra("password", MainActivity.account.getPassword());
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);//다음 액티비티 화면에 출력
 

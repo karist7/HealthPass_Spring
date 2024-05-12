@@ -22,8 +22,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, String
     @Query("SELECT p from Reservation p Where p.date = :date AND p.hour = :hour AND p.minute =:minute")
     Optional<Reservation> duplicateTime(@Param("date")LocalDate date, @Param("hour") int hour, @Param("minute") int minute);
 
-    @Query("SELECT p from Reservation p where p.email IN (SELECT sub from Reservation" +
-            "where sub.hour = :hour and sub.minute = :minute)")
-    Optional<Reservation> duplicateMachine();
+    @Query("SELECT p FROM Reservation p WHERE p.email = :email AND p.date = :date AND p.hour = :hour AND p.minute = :minute")
+    Optional<Reservation> duplicateMachine(@Param("email") String email, @Param("date") LocalDate date, @Param("hour") int hour, @Param("minute") int minute);
+
 
 }

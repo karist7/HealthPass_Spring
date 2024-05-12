@@ -33,6 +33,12 @@ public class Reservation {
     @Column(nullable = false)
     private String email;
 
+    @Column(nullable = false)
+    private String user_name;
+
+    @Column(nullable = false)
+    private String user_phone;
+
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
@@ -46,6 +52,8 @@ public class Reservation {
         reservationDto.setHour(reservation.getHour());
         reservationDto.setMinute(reservation.getMinute());
         reservationDto.setEmail(reservation.getEmail());
+        reservationDto.setUser_name(reservation.getUser_name());
+        reservationDto.setUser_phone(reservation.getUser_phone());
         return reservationDto;
     }
 }

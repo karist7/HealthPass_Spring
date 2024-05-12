@@ -191,7 +191,7 @@ public class ReserveDaytimeActivity extends Activity {
                     startActivity(intent);//다음 액티비티 화면에 출력
 
                 }
-                else if (response.code()==203){
+                else if (response.code()==202){
                     Toast.makeText(ReserveDaytimeActivity.this,"선택하신 시간은 이미 예약하셨습니다.",
                             Toast.LENGTH_SHORT).show();
 

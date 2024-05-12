@@ -125,9 +125,10 @@ public class ReserveConfirmActivity  extends Activity {
         json.addProperty("hour",time);
         json.addProperty("minute",minute);
         json.addProperty("email",MainActivity.account.getEmail());
-        json.addProperty("phone",MainActivity.account.getPhone());
-        json.addProperty("name",MainActivity.account.getName());
+        json.addProperty("user_phone",MainActivity.account.getPhone());
+        json.addProperty("user_name",MainActivity.account.getName());
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+        Log.d("jsonTest",new Gson().toJson(json));
         retrofitManager.getApiService().reserved(body).enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
