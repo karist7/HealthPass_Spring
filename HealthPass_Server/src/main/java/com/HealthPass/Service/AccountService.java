@@ -2,7 +2,9 @@ package com.HealthPass.Service;
 
 import com.HealthPass.Data.Dto.AccountDto;
 import com.HealthPass.Data.Entity.Account;
+import com.HealthPass.Data.Entity.Reservation;
 import com.HealthPass.Data.Repository.AccountRepository;
+import com.HealthPass.Data.Repository.ReservationRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

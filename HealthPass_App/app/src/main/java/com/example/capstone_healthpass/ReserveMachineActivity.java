@@ -247,7 +247,10 @@ public class ReserveMachineActivity extends Activity {
                 Log.d("jsonTest",new Gson().toJson(json));
                 if(response.code()==201) {
                     Intent intent = new Intent(ReserveMachineActivity.this, ReserveConfirmActivity.class);
-
+                    intent.putExtra("name",MainActivity.account.getName());
+                    intent.putExtra("phone", MainActivity.account.getPhone());
+                    intent.putExtra("email", MainActivity.account.getEmail());
+                    intent.putExtra("password", MainActivity.account.getPassword());
                     startActivity(intent);//다음 액티비티 화면에 출력
                     finish();
                 }

@@ -20,13 +20,10 @@ public class ReservationDto {
 
     private int hour;
     private int minute;
-    private String email;
-    //사용자 이름
-    private String user_name;
-    //사용자 전화번호
-    private String user_phone;
-    private int status;
 
+    private int status;
+    private AccountDto account;
+    private String classString;
     public static Reservation toReservation(ReservationDto reservationDto){
         Reservation reservation = new Reservation();
         reservation.setId(reservationDto.getId());
@@ -35,9 +32,9 @@ public class ReservationDto {
         reservation.setDate(reservationDto.getDate());
         reservation.setHour(reservationDto.getHour());
         reservation.setMinute(reservationDto.getMinute());
-        reservation.setEmail(reservationDto.getEmail());
-        reservation.setUser_name(reservationDto.getUser_name());
-        reservation.setUser_phone(reservationDto.getUser_phone());
+        AccountDto toAccount = reservationDto.getAccount();
+        Account info = AccountDto.toAccount(toAccount);
+        reservation.setAccount(info);
         return reservation;
     }
 }

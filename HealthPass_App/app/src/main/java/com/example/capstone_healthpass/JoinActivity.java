@@ -49,37 +49,9 @@ public class JoinActivity extends AppCompatActivity {
 
 
         // 네비게이션 아이템 클릭 리스너 설정
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        Intent intent = new Intent(JoinActivity.this, MainActivity.class);
-                        startActivity(intent);//다음 액티비티 화면에
-                        finish();
-
-                        break;
-                    case R.id.navigation_mypage:
-                        Intent intent1 = new Intent(JoinActivity.this, MYpageActivity.class);
-                        intent1.putExtra("name",MainActivity.account.getName());
-                        intent1.putExtra("phone", MainActivity.account.getPhone());
-                        intent1.putExtra("email", MainActivity.account.getEmail());
-                        intent1.putExtra("password", MainActivity.account.getPassword());
-                        startActivity(intent1);//다음 액티비티 화면에
-
-                        // 예: 마이페이지 화면으로 이동
-                        break;
-                    case R.id.navigation_qr_code:
-                        Intent intent3 = new Intent(JoinActivity.this,ScanQR.class);
-
-                        startActivity(intent3);
-
-                        break;
-                }
-                return true;
-            }
-        });
+        // 네비게이션 아이템 클릭 리스너 설정
+        BottomNavigationManager navigationManager = new BottomNavigationManager(JoinActivity.this);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationManager);
 
 
     }

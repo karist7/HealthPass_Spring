@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.capstone_healthpass.server.Account;
 import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -167,27 +168,32 @@ public class ReserveDaytimeActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "이전 날짜는 선택할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
                 else
-                    reservedTime(day,hour,minute,MainActivity.account.getEmail());
+                    reservedTime(day,hour,minute,MainActivity.account);
 
             }
         });
     }
-    public void reservedTime(final String date, final int hour, final int minute, final String email){
+    public void reservedTime(final String date, final int hour, final int minute, final Account account){
         JsonObject json = new JsonObject();
         json.addProperty("date", date);
         json.addProperty("hour", hour);
         json.addProperty("minute",minute);
-        json.addProperty("email",email);
+        Gson gson = new Gson();
+        String accountJson = gson.toJson(account);
+        json.addProperty("account",accountJson);
 
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
         retrofitManager.getApiService().reservedTime(body).enqueue(new Callback<JSONObject>() {
 
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                Log.d("DayTimeSuccess",response.code()+"");
+                Log.d("jsonTest",new Gson().toJson(json));
                 if (response.code()==201){
                     Intent intent = new Intent(ReserveDaytimeActivity.this, ReserveMachineActivity.class); //다음 클래스 정보 입력
-
+                    intent.putExtra("name",MainActivity.account.getName());
+                    intent.putExtra("phone", MainActivity.account.getPhone());
+                    intent.putExtra("email", MainActivity.account.getEmail());
+                    intent.putExtra("password", MainActivity.account.getPassword());
                     startActivity(intent);//다음 액티비티 화면에 출력
 
                 }

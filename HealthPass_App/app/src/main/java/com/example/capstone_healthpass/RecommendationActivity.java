@@ -34,41 +34,9 @@ public class RecommendationActivity extends Activity  {
         dbTest();
         // 네비게이션 아이템 클릭 리스너 설정
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        Intent intent = new Intent(RecommendationActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);//다음 액티비티 화면에
-
-
-                        break;
-                    case R.id.navigation_mypage:
-                        if(MainActivity.account.getName()=="") {
-                            Toast.makeText(RecommendationActivity.this, "로그인 후 이용 바랍니다.", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Intent intent1 = new Intent(RecommendationActivity.this, MYpageActivity.class);
-                            intent1.putExtra("name",MainActivity.account.getName());
-                            intent1.putExtra("phone", MainActivity.account.getPhone());
-                            intent1.putExtra("email", MainActivity.account.getEmail());
-                            intent1.putExtra("password", MainActivity.account.getPassword());
-                            startActivity(intent1);//다음 액티비티 화면에
-
-                            // 예: 마이페이지 화면으로 이동
-                        }
-                        break;
-                    case R.id.navigation_qr_code:
-                        Intent intent3 = new Intent(RecommendationActivity.this,ScanQR.class);
-
-                        startActivity(intent3);
-
-                        break;
-                }
-                return true;
-            }
-        });
+        // 네비게이션 아이템 클릭 리스너 설정
+        BottomNavigationManager navigationManager = new BottomNavigationManager(RecommendationActivity.this);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationManager);
         Button button = findViewById(R.id.button15);
         button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -50,7 +50,7 @@ public interface ApiService {
             @Body RequestBody body
 
             );
-    @FormUrlEncoded
+    @Headers("Content-Type: application/json; charset=utf-8")
     @POST("info/")
     Call<List<Reservation>> reservedInfo(
             @Field("email") String email

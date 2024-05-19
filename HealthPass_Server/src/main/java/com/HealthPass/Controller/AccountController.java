@@ -2,6 +2,7 @@ package com.HealthPass.Controller;
 
 import com.HealthPass.Data.Dto.AccountDto;
 import com.HealthPass.Data.Entity.Account;
+import com.HealthPass.Data.Entity.Reservation;
 import com.HealthPass.Service.AccountService;
 import com.HealthPass.config.MessageData;
 import io.swagger.v3.oas.annotations.Operation;
@@ -13,13 +14,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.List;
 
 @RestController
 @Data

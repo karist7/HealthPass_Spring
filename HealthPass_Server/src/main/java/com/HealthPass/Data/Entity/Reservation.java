@@ -1,5 +1,6 @@
 package com.HealthPass.Data.Entity;
 
+import com.HealthPass.Data.Dto.AccountDto;
 import com.HealthPass.Data.Dto.ReservationDto;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -30,15 +31,6 @@ public class Reservation {
     @Column(nullable = false)
     private int minute;
 
-    @Column(nullable = false)
-    private String email;
-
-    @Column(nullable = false)
-    private String user_name;
-
-    @Column(nullable = false)
-    private String user_phone;
-
     @ManyToOne
     @JoinColumn(name = "account_id")
     private Account account;
@@ -51,9 +43,9 @@ public class Reservation {
         reservationDto.setDate(reservation.getDate());
         reservationDto.setHour(reservation.getHour());
         reservationDto.setMinute(reservation.getMinute());
-        reservationDto.setEmail(reservation.getEmail());
-        reservationDto.setUser_name(reservation.getUser_name());
-        reservationDto.setUser_phone(reservation.getUser_phone());
+        Account a = reservation.getAccount();
+        AccountDto act = Account.toAccountDto(a);
+        reservationDto.setAccount(act);
         return reservationDto;
     }
 }

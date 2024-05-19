@@ -37,37 +37,9 @@ public class SelectActivity extends AppCompatActivity {
         dbTest();
         // 네비게이션 아이템 클릭 리스너 설정
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.navigation_home:
-                        Intent intent = new Intent(SelectActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                        startActivity(intent);//다음 액티비티 화면에
-
-
-                        break;
-                    case R.id.navigation_mypage:
-                        if(MainActivity.account.getName()=="") {
-                            Toast.makeText(SelectActivity.this, "로그인 후 이용 바랍니다.", Toast.LENGTH_SHORT).show();
-                        }else {
-                            Intent intent1 = new Intent(SelectActivity.this, MYpageActivity.class);
-                            startActivity(intent1);//다음 액티비티 화면에
-
-                            // 예: 마이페이지 화면으로 이동
-                        }
-                        break;
-                    case R.id.navigation_qr_code:
-                        Intent intent3 = new Intent(SelectActivity.this,ScanQR.class);
-
-                        startActivity(intent3);
-
-                        break;
-                }
-                return true;
-            }
-        });
+        // 네비게이션 아이템 클릭 리스너 설정
+        BottomNavigationManager navigationManager = new BottomNavigationManager(SelectActivity.this);
+        bottomNavigationView.setOnNavigationItemSelectedListener(navigationManager);
         Button button = findViewById(R.id.button27);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,8 +68,6 @@ public class SelectActivity extends AppCompatActivity {
                 radioButton.setOnClickListener(view -> {
                     // 선택된 라디오 버튼의 텍스트를 가져와서 사용 가능
                     selectedOption = ((RadioButton) view).getText().toString();
-
-
                 });
             }while(cursor.moveToNext());
         }

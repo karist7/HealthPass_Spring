@@ -137,7 +137,10 @@ public class ReserveConfirmActivity  extends Activity {
                     Log.d("Reservation","ReservationComplete");
 
                     Intent intent = new Intent(ReserveConfirmActivity.this, ReserveEndActivity.class);
-
+                    intent.putExtra("name",MainActivity.account.getName());
+                    intent.putExtra("phone", MainActivity.account.getPhone());
+                    intent.putExtra("email", MainActivity.account.getEmail());
+                    intent.putExtra("password", MainActivity.account.getPassword());
                     startActivity(intent);//다음 액티비티 화면에 출력
 
                 }

@@ -11,21 +11,16 @@ public class Reservation {
     private String time;
     @SerializedName("minute")
     private String minute;
-    @SerializedName("email")
-    private String email;
+    @SerializedName("account")
+    private Account account;
     @SerializedName("seat")
     private String seat;
     @SerializedName("ex_name")
     private String ex_name;
-    @SerializedName("user_name")
-    private String user_name;
 
-    public String getUser_phone() {
-        return user_phone;
-    }
 
-    @SerializedName("user_phone")
-    private String user_phone;
+
+
 
     public String getDay() {
         return date;
@@ -39,9 +34,7 @@ public class Reservation {
         return minute;
     }
 
-    public String getEmail() {
-        return email;
-    }
+
 
     public String getSeat() {
         return seat;
@@ -51,7 +44,5 @@ public class Reservation {
         return ex_name;
     }
 
-    public String getUser_name() {
-        return user_name;
-    }
+
 }

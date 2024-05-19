@@ -25,7 +25,7 @@ public class Account {
     @Pattern(regexp="(?=.*[a-z])(?=.*[0-9]).{6,20}")
     private String password;
 
-    @OneToMany(mappedBy = "account")
+    @OneToMany(mappedBy = "account",fetch = FetchType.LAZY)
     private List<Reservation> reservations = new ArrayList<>();
 
     public static AccountDto toAccountDto(Account account){
