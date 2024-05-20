@@ -74,6 +74,7 @@ public class ReservationService {
         LocalDate date =dto.getDate();
         int hour = dto.getHour();
         int minute = dto.getMinute();
+
         String email = dto.getAccount().getEmail();
 
         if(reservationRepository.duplicateMachine(email,date, hour, minute).isPresent()){
@@ -98,6 +99,7 @@ public class ReservationService {
 
         Account account = Account.fromJson(stringAccount);
         dto.setAccount(account);
+        logger.debug(dto.getAccount().getEmail());
         dto.setDate(date);
         dto.setHour(reservation.getHour());
         dto.setMinute(reservation.getMinute());

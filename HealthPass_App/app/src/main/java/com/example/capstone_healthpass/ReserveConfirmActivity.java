@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
+import com.example.capstone_healthpass.server.Account;
 import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -124,9 +125,17 @@ public class ReserveConfirmActivity  extends Activity {
         json.addProperty("date",day);
         json.addProperty("hour",time);
         json.addProperty("minute",minute);
-        json.addProperty("email",MainActivity.account.getEmail());
-        json.addProperty("user_phone",MainActivity.account.getPhone());
-        json.addProperty("user_name",MainActivity.account.getName());
+
+        JsonObject act = new JsonObject();
+        Account create = MainActivity.account;
+
+        act.addProperty("email", create.getEmail());
+        act.addProperty("password", create.getPassword());
+        act.addProperty("phone", create.getPhone());
+        act.addProperty("name", create.getName());
+        String jsonString = act.toString();
+        json.addProperty("stringAccount",jsonString);
+
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
         Log.d("jsonTest",new Gson().toJson(json));
         retrofitManager.getApiService().reserved(body).enqueue(new Callback<JSONObject>() {

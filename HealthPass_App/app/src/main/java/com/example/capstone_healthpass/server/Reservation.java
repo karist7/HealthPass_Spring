@@ -11,8 +11,7 @@ public class Reservation {
     private String time;
     @SerializedName("minute")
     private String minute;
-    @SerializedName("account")
-    private Account account;
+
     @SerializedName("seat")
     private String seat;
     @SerializedName("ex_name")
