@@ -1,26 +1,29 @@
 package com.example.capstone_healthpass.server;
 
-import com.example.capstone_healthpass.server.ApiService;
-
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitManager {
-    private Retrofit retrofit;
-    private ApiService apiService;
+    private static final String BASE_URL = "http://220.69.208.121:8080";
 
-    Retrofit.Builder builder = new Retrofit.Builder()
-            .baseUrl("http://192.168.45.192:8080")
-            .addConverterFactory(GsonConverterFactory.create());
+    private static Retrofit retrofit;
 
-    public RetrofitManager() {
-        retrofit = builder.build();
-        apiService = retrofit.create(ApiService.class);
-    }
+    public static ApiService getApiService() {
+        if (retrofit == null) {
+            HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
 
-    public ApiService getApiService() {
-        return apiService;
+            OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+            httpClient.addInterceptor(logging);
+
+            retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(httpClient.build())
+                    .build();
+        }
+        return retrofit.create(ApiService.class);
     }
 }

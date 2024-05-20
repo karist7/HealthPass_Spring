@@ -1,6 +1,10 @@
 package com.HealthPass.Data.Entity;
 
 import com.HealthPass.Data.Dto.AccountDto;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -10,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 @Entity
 public class Account {
@@ -22,7 +28,7 @@ public class Account {
     @Column(nullable = false)
     private String phone;
     @Column(nullable = false)
-    @Pattern(regexp="(?=.*[a-z])(?=.*[0-9]).{6,20}")
+    //@Pattern(regexp="(?=.*[a-z])(?=.*[0-9]).{6,20}")
     private String password;
 
     @OneToMany(mappedBy = "account",fetch = FetchType.LAZY)
@@ -36,5 +42,9 @@ public class Account {
         dto.setName(account.getName());
         dto.setReservations(account.getReservations());
         return dto;
+    }
+    public static Account fromJson(String json) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(json, Account.class);
     }
 }

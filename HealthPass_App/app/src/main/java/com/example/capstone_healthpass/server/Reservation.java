@@ -18,7 +18,8 @@ public class Reservation {
     @SerializedName("ex_name")
     private String ex_name;
 
-
+    @SerializedName("stringAccount")
+    private String stringAccount;
 
 
 

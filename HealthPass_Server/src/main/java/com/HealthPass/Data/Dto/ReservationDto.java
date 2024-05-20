@@ -4,12 +4,16 @@ import com.HealthPass.Data.Entity.Account;
 import com.HealthPass.Data.Entity.Reservation;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReservationDto {
     private int id;
 
@@ -22,8 +26,8 @@ public class ReservationDto {
     private int minute;
 
     private int status;
-    private AccountDto account;
-    private String classString;
+    private Account account;
+    private String stringAccount;
     public static Reservation toReservation(ReservationDto reservationDto){
         Reservation reservation = new Reservation();
         reservation.setId(reservationDto.getId());
@@ -32,9 +36,8 @@ public class ReservationDto {
         reservation.setDate(reservationDto.getDate());
         reservation.setHour(reservationDto.getHour());
         reservation.setMinute(reservationDto.getMinute());
-        AccountDto toAccount = reservationDto.getAccount();
-        Account info = AccountDto.toAccount(toAccount);
-        reservation.setAccount(info);
+
+        reservation.setAccount(reservationDto.getAccount());
         return reservation;
     }
 }

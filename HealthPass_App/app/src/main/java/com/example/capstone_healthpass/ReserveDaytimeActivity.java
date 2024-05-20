@@ -18,6 +18,7 @@ import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -167,23 +168,34 @@ public class ReserveDaytimeActivity extends Activity {
                 || dPicker.getDayOfMonth() < currentDayOfMonth){
                     Toast.makeText(getApplicationContext(), "이전 날짜는 선택할 수 없습니다.", Toast.LENGTH_SHORT).show();
                 }
-                else
-                    reservedTime(day,hour,minute,MainActivity.account);
+                else {
+                    try {
+                        reservedTime(day,hour,minute);
+                    } catch (JSONException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
 
             }
         });
     }
-    public void reservedTime(final String date, final int hour, final int minute, final Account account){
+    public void reservedTime(final String date, final int hour, final int minute) throws JSONException {
         JsonObject json = new JsonObject();
         json.addProperty("date", date);
         json.addProperty("hour", hour);
         json.addProperty("minute",minute);
-        Gson gson = new Gson();
-        String accountJson = gson.toJson(account);
-        json.addProperty("account",accountJson);
+        JsonObject act = new JsonObject();
+        Account create = MainActivity.account;
+
+        act.addProperty("email", create.getEmail());
+        act.addProperty("password", create.getPassword());
+        act.addProperty("phone", create.getPhone());
+        act.addProperty("name", create.getName());
+        String jsonString = act.toString();
+        json.addProperty("stringAccount",jsonString);
 
         RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
-        retrofitManager.getApiService().reservedTime(body).enqueue(new Callback<JSONObject>() {
+        RetrofitManager.getApiService().reservedTime(body).enqueue(new Callback<JSONObject>() {
 
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {

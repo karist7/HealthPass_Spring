@@ -4,12 +4,16 @@ import com.HealthPass.Data.Entity.Account;
 import com.HealthPass.Data.Entity.Reservation;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountDto {
     @Email(message = "이메일 형식이 올바르지 않습니다.")
     private String email;

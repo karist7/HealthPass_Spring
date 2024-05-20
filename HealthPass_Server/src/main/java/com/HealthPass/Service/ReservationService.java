@@ -32,7 +32,7 @@ public class ReservationService {
     public ReservationDto reservedTime(ReservationDto reservation) throws UnsupportedEncodingException, JsonProcessingException {
 
         setReservation(reservation);
-        Account account = AccountDto.toAccount(dto.getAccount());
+        Account account = dto.getAccount();
         String email = account.getEmail();
 
         LocalDate date = dto.getDate();
@@ -93,12 +93,15 @@ public class ReservationService {
         String dateString = reservation.getDate().toString();
         LocalDate date = LocalDate.parse(dateString);
         // Reservation 객체에서 AccountDto를 가져옴
-        AccountDto accountDto = reservation.getAccount();
+        String stringAccount = reservation.getStringAccount();
 
-        dto.setAccount(accountDto);
+
+        Account account = Account.fromJson(stringAccount);
+        dto.setAccount(account);
         dto.setDate(date);
         dto.setHour(reservation.getHour());
         dto.setMinute(reservation.getMinute());
+
 
 
 
