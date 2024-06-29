@@ -2,6 +2,7 @@ package com.HealthPass.Data.Dto;
 
 import com.HealthPass.Data.Entity.Account;
 import com.HealthPass.Data.Entity.Reservation;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -26,7 +27,10 @@ public class ReservationDto {
     private int minute;
 
     private int status;
+
+
     private Account account;
+
     private String stringAccount;
     public static Reservation toReservation(ReservationDto reservationDto){
         Reservation reservation = new Reservation();

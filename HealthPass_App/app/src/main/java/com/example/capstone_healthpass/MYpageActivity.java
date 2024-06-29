@@ -16,13 +16,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.capstone_healthpass.server.Account;
 import com.example.capstone_healthpass.server.Reservation;
 import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -88,8 +93,22 @@ public class MYpageActivity  extends AppCompatActivity {
 
     }
     public void reservedInfos(final String email){
+        JsonObject json = new JsonObject();
 
-        retrofitManager.getApiService().reservedInfo(email).enqueue(new Callback<List<Reservation>>() {
+        Account create = MainActivity.account;
+
+        JsonObject act = new JsonObject();
+
+        act.addProperty("email", create.getEmail());
+        act.addProperty("password", create.getPassword());
+        act.addProperty("phone", create.getPhone());
+        act.addProperty("name", create.getName());
+        String jsonString = act.toString();
+        json.addProperty("stringAccount",jsonString);
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+        Log.d("jsonTest",new Gson().toJson(json));
+        retrofitManager.getApiService().reservedInfo(body).enqueue(new Callback<List<Reservation>>() {
             @Override
             public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
                 if(response.code()==201){
@@ -101,7 +120,7 @@ public class MYpageActivity  extends AppCompatActivity {
                         reserveDay = reservation.getDay();
                         reserveSeat = reservation.getSeat();
                         reserveEx_name = reservation.getEx_name();
-                        String str = reserveDay + " " + reserveTime + " " + reserveMinute + " " + reserveSeat + " "+reserveEx_name;
+                        String str = reserveDay + " \t" + reserveTime + "시\t" + reserveMinute + "분\t" + reserveSeat + "\t"+reserveEx_name;
                         RadioButton radioButton = new RadioButton(MYpageActivity.this);
                         radioButton.setText(str);
                         radioGroup.addView(radioButton);

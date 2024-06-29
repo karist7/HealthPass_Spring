@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.capstone_healthpass.server.Reservation;
 import com.example.capstone_healthpass.server.RetrofitManager;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -24,6 +26,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -82,7 +86,12 @@ public class ScanQR extends AppCompatActivity {
         }
     }
     private void checkInfo(){
-        retrofitManager.getApiService().reservedInfo(MainActivity.account.getEmail()).enqueue(new Callback<List<Reservation>>() {
+        JsonObject json = new JsonObject();
+
+
+
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), new Gson().toJson(json));
+        retrofitManager.getApiService().reservedInfo(body).enqueue(new Callback<List<Reservation>>() {
             @Override
             public void onResponse(Call<List<Reservation>> call, Response<List<Reservation>> response) {
                 if(response.code()==201){

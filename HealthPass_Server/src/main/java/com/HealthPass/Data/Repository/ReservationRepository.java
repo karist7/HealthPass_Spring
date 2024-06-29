@@ -1,5 +1,6 @@
 package com.HealthPass.Data.Repository;
 
+import com.HealthPass.Data.Dto.AccountDto;
 import com.HealthPass.Data.Entity.Account;
 import com.HealthPass.Data.Entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -25,5 +26,7 @@ public interface ReservationRepository extends JpaRepository<Reservation, String
     @Query("SELECT p from Reservation p Where p.date = :date AND p.hour = :hour AND p.minute =:minute")
     Optional<Reservation> duplicateTime(@Param("date")LocalDate date, @Param("hour") int hour, @Param("minute") int minute);
 
+    @Query("SELECT p from Reservation p where p.account.email =:email")
+    List<Reservation> info(@Param("email")String email);
 
 }

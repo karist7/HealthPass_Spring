@@ -2,6 +2,8 @@ package com.HealthPass.Data.Entity;
 
 import com.HealthPass.Data.Dto.AccountDto;
 import com.HealthPass.Data.Dto.ReservationDto;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
@@ -37,6 +39,7 @@ public class Reservation {
 
     @ManyToOne
     @JoinColumn(name = "account_email")
+    @JsonBackReference
     private Account account;
 
     public static ReservationDto toReservationDto(Reservation reservation){

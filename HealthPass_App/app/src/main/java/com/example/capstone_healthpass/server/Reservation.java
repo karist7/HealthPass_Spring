@@ -7,7 +7,7 @@ import retrofit2.http.Field;
 public class Reservation {
     @SerializedName("date")
     private String date;
-    @SerializedName("time")
+    @SerializedName("hour")
     private String time;
     @SerializedName("minute")
     private String minute;

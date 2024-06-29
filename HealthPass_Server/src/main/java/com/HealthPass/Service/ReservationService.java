@@ -56,7 +56,6 @@ public class ReservationService {
         int minute = dto.getMinute();
         String seat = dto.getSeat();
         String ex_name = dto.getEx_name();
-        logger.info(dto.getEx_name());
         //예약 내역이 존재할 경우
         if(reservationRepository.findResv(date,hour,minute,seat,ex_name).isPresent()){
             dto.setStatus(202);
@@ -66,9 +65,9 @@ public class ReservationService {
         }
         return dto;
     }
-    public ReservationDto reservation(ReservationDto reservationDto){
+    public ReservationDto reservation( ){
         dto.setStatus(0);
-        logger.trace(dto.getEx_name());
+
 
         Reservation resv = ReservationDto.toReservation(dto);
         LocalDate date =dto.getDate();
@@ -95,8 +94,6 @@ public class ReservationService {
         LocalDate date = LocalDate.parse(dateString);
         // Reservation 객체에서 AccountDto를 가져옴
         String stringAccount = reservation.getStringAccount();
-
-
         Account account = Account.fromJson(stringAccount);
         dto.setAccount(account);
         logger.debug(dto.getAccount().getEmail());
@@ -104,14 +101,17 @@ public class ReservationService {
         dto.setHour(reservation.getHour());
         dto.setMinute(reservation.getMinute());
 
-
-
-
     }
     public void setMachine(ReservationDto reservation){
 
         dto.setEx_name(reservation.getEx_name());
         dto.setSeat(reservation.getSeat());
     }
+    public List<Reservation> findInfo(ReservationDto reservationDto) throws JsonProcessingException {
+        String stringAccount = reservationDto.getStringAccount();
 
+        Account account = Account.fromJson(stringAccount);
+        String email = account.getEmail();
+        return reservationRepository.info(email);
+    }
 }

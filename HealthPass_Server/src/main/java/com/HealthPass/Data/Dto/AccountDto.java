@@ -2,6 +2,8 @@ package com.HealthPass.Data.Dto;
 
 import com.HealthPass.Data.Entity.Account;
 import com.HealthPass.Data.Entity.Reservation;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
@@ -24,6 +26,7 @@ public class AccountDto {
 
     private int  status;
     private String message;
+
 
     private List<Reservation> reservations = new ArrayList<>();
 

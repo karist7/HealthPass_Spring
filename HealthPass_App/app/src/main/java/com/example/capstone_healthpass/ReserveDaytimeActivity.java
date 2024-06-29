@@ -185,6 +185,7 @@ public class ReserveDaytimeActivity extends Activity {
         json.addProperty("hour", hour);
         json.addProperty("minute",minute);
         JsonObject act = new JsonObject();
+
         Account create = MainActivity.account;
 
         act.addProperty("email", create.getEmail());
