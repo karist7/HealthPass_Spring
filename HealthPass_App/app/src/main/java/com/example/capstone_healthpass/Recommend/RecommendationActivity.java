@@ -1,4 +1,4 @@
-package com.example.capstone_healthpass;
+package com.example.capstone_healthpass.Recommend;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -14,11 +14,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.capstone_healthpass.BottomNavigationManager;
 import com.example.capstone_healthpass.DB.DBType;
+import com.example.capstone_healthpass.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-
+import com.example.capstone_healthpass.R;
 public class RecommendationActivity extends Activity  {
     String receivedData;
     Intent intent;
@@ -41,7 +43,7 @@ public class RecommendationActivity extends Activity  {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);//다음 액티비티 화면에 출력
             }

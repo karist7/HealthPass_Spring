@@ -1,22 +1,20 @@
-package com.example.capstone_healthpass;
+package com.example.capstone_healthpass.Recommend;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.capstone_healthpass.BottomNavigationManager;
 import com.example.capstone_healthpass.DB.DBType;
+import com.example.capstone_healthpass.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SelectActivity extends AppCompatActivity {

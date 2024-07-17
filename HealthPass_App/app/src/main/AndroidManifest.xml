@@ -29,37 +29,37 @@
             android:name=".MainActivity"
             android:exported="true"
             />
-        <activity android:name=".ReserveEndActivity"
+        <activity android:name=".Reserve.ReserveEndActivity"
             android:exported="true"
            />
-        <activity android:name=".ReserveMachineActivity"
+        <activity android:name=".Reserve.ReserveMachineActivity"
             android:exported="true"
             />
-        <activity android:name=".LoginActivity"
+        <activity android:name=".Account.LoginActivity"
             android:exported="true"
             />
-        <activity android:name=".ReserveConfirmActivity"
+        <activity android:name=".Reserve.ReserveConfirmActivity"
             android:exported="true"
             />
-        <activity android:name=".ReserveDaytimeActivity"
+        <activity android:name=".Reserve.ReserveDaytimeActivity"
             android:exported="true"
             />
-        <activity android:name=".SelectActivity"
+        <activity android:name=".Recommend.SelectActivity"
             android:exported="true"
             />
-        <activity android:name=".JoinActivity"
+        <activity android:name=".Account.JoinActivity"
             android:exported="true"
             />
         <activity android:name=".gpsActivity"
             android:exported="true"
             />
-        <activity android:name=".RecommendationActivity"
+        <activity android:name=".Recommend.RecommendationActivity"
             android:exported="true"
             />
-        <activity android:name=".RoutineActivity"
+        <activity android:name=".Recommend.RoutineActivity"
             android:exported="true"
             />
-        <activity android:name=".MYpageActivity"
+        <activity android:name=".Account.MYpageActivity"
             android:exported="true"
             />
         <activity android:name=".WeekPlanActivity"

@@ -1,4 +1,4 @@
-package com.example.capstone_healthpass;
+package com.example.capstone_healthpass.Reserve;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.capstone_healthpass.MainActivity;
 import com.example.capstone_healthpass.server.RetrofitManager;
 
 import com.google.gson.Gson;
@@ -30,7 +31,7 @@ import java.util.Date;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import com.example.capstone_healthpass.R;
 public class ReserveMachineActivity extends Activity {
     //Context로 다음 액티비티에서 정보 사용
     RetrofitManager retrofitManager = new RetrofitManager();
@@ -81,7 +82,7 @@ public class ReserveMachineActivity extends Activity {
         //예약자 명,연락처 dialog를 위한 변수 연결
         tvName = (TextView)findViewById(R.id.tvName);
         tvPhone = (TextView)findViewById(R.id.tvPhone);
-        if(MainActivity.account.getName()!=""&&MainActivity.account.getPhone()!=""){
+        if(MainActivity.account.getName()!=""&& MainActivity.account.getPhone()!=""){
             tvName.setText(MainActivity.account.getName());
             tvPhone.setText(MainActivity.account.getPhone());
         }

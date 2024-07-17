@@ -1,26 +1,19 @@
 package com.HealthPass.Service;
 
-import com.HealthPass.Data.Dto.AccountDto;
 import com.HealthPass.Data.Dto.ReservationDto;
 import com.HealthPass.Data.Entity.Account;
 import com.HealthPass.Data.Entity.Reservation;
-import com.HealthPass.Data.Repository.AccountRepository;
 import com.HealthPass.Data.Repository.ReservationRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.io.UnsupportedEncodingException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -113,5 +106,28 @@ public class ReservationService {
         Account account = Account.fromJson(stringAccount);
         String email = account.getEmail();
         return reservationRepository.info(email);
+    }
+    public ReservationDto deleteReservation(ReservationDto reservationDto){
+        dto.setStatus(0);
+        int minute = reservationDto.getMinute();
+        LocalDate date = reservationDto.getDate();
+        String ex_name = reservationDto.getEx_name();
+        String seat = reservationDto.getSeat();
+        int hour = reservationDto.getHour();
+
+        Optional<Reservation> resv = reservationRepository.findResv(date,hour,minute,seat,ex_name);
+        if(resv.isPresent()){
+
+            Reservation reservation = resv.get();
+
+            dto.setStatus(201);
+            reservationRepository.delete(reservation);
+        }
+        else{
+            dto.setStatus(400);
+        }
+
+
+        return reservationDto;
     }
 }

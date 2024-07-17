@@ -1,5 +1,6 @@
-package com.example.capstone_healthpass;
+package com.example.capstone_healthpass.Account;
 
+import com.example.capstone_healthpass.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.capstone_healthpass.BottomNavigationManager;
+import com.example.capstone_healthpass.MainActivity;
 import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.gson.Gson;

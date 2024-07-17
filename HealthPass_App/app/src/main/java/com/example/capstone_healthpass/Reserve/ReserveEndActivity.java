@@ -1,4 +1,4 @@
-package com.example.capstone_healthpass;
+package com.example.capstone_healthpass.Reserve;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -9,10 +9,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.capstone_healthpass.MainActivity;
 import com.example.capstone_healthpass.server.ApiService;
 
 import retrofit2.Retrofit;
-
+import com.example.capstone_healthpass.R;
 public class ReserveEndActivity extends Activity {
 
     TextView tvYear4, tvMonth4, tvDay4, tvHour4, tvMinute4;

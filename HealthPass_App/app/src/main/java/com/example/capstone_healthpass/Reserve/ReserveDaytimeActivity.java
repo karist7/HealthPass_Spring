@@ -1,4 +1,4 @@
-package com.example.capstone_healthpass;
+package com.example.capstone_healthpass.Reserve;
 
 import android.app.Activity;
 import android.content.Context;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.capstone_healthpass.MainActivity;
 import com.example.capstone_healthpass.server.Account;
 import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.gson.Gson;
@@ -31,7 +32,7 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+import com.example.capstone_healthpass.R;
 public class ReserveDaytimeActivity extends Activity {
     public static final int TIME_PICKER_INTERVAL = 30;
     private boolean mIgnoreEvent = false;

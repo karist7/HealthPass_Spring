@@ -15,7 +15,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.capstone_healthpass.Account.JoinActivity;
+import com.example.capstone_healthpass.Account.LoginActivity;
 import com.example.capstone_healthpass.DB.DataBaseHelper;
+import com.example.capstone_healthpass.Recommend.RoutineActivity;
+import com.example.capstone_healthpass.Reserve.ReserveDaytimeActivity;
 import com.example.capstone_healthpass.server.Account;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

@@ -1,23 +1,18 @@
-package com.example.capstone_healthpass;
+package com.example.capstone_healthpass.Recommend;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-
-import com.example.capstone_healthpass.DB.DBType;
+import com.example.capstone_healthpass.BottomNavigationManager;
+import com.example.capstone_healthpass.MainActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
+import com.example.capstone_healthpass.R;
 public class RoutineActivity extends Activity {
     private RadioGroup radioGroup;
     private BottomNavigationView bottomNavigationView;
@@ -55,7 +50,7 @@ public class RoutineActivity extends Activity {
     public void clickCheck(View view){
         if (str!="") {
             Intent intent = new Intent(RoutineActivity.this, SelectActivity.class);
-            intent.putExtra("name",MainActivity.account.getName());
+            intent.putExtra("name", MainActivity.account.getName());
             intent.putExtra("phone", MainActivity.account.getPhone());
             intent.putExtra("email", MainActivity.account.getEmail());
             intent.putExtra("password", MainActivity.account.getPassword());

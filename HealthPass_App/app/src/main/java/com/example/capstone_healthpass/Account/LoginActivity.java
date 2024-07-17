@@ -1,5 +1,5 @@
-package com.example.capstone_healthpass;
-
+package com.example.capstone_healthpass.Account;
+import com.example.capstone_healthpass.R;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.capstone_healthpass.MainActivity;
 import com.example.capstone_healthpass.server.RetrofitManager;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;

@@ -13,6 +13,7 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HTTP;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -56,13 +57,10 @@ public interface ApiService {
             @Body RequestBody body
 
     );
-    @DELETE("info/")
-    Call<ResponseBody> reservedCancel(
-            @Query("day") String day,
-            @Query("time") String time,
-            @Query("minute")String minute,
-            @Query("seat") String seat,
-            @Query("ex_name") String ex_name
+    @Headers("Content-Type: application/json; charset=utf-8")
+    @HTTP(method = "DELETE", path = "info/", hasBody = true)
+    Call<JSONObject> reservedCancel(
+            @Body RequestBody body
 
     );
 

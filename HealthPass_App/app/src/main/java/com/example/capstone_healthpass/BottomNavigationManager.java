@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
+import com.example.capstone_healthpass.Account.MYpageActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class BottomNavigationManager implements BottomNavigationView.OnNavigationItemSelectedListener {
