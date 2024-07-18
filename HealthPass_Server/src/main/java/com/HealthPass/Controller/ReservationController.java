@@ -9,6 +9,8 @@ import jakarta.persistence.Column;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +27,7 @@ import java.util.List;
 public class ReservationController {
 
     private final ReservationService reservationService;
-
+    private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
     @PostMapping(value="/reserveTime/")
     @ResponseBody
     public ResponseEntity<ReservationDto> reserveTime (@RequestBody ReservationDto reservation) throws IOException {
@@ -88,6 +90,7 @@ public class ReservationController {
         ReservationDto dto = reservationService.deleteReservation(reservationDto);
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
+        logger.debug("errorMessage {}",dto.getStatus());
         if(dto.getStatus()==201)
             return new ResponseEntity<>(dto, header, HttpStatus.CREATED);
         else{

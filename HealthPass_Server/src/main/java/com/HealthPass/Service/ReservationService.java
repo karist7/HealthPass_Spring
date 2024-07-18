@@ -120,11 +120,12 @@ public class ReservationService {
 
             Reservation reservation = resv.get();
 
-            dto.setStatus(201);
+            reservationDto.setStatus(201);
+
             reservationRepository.delete(reservation);
         }
         else{
-            dto.setStatus(400);
+            reservationDto.setStatus(400);
         }
 
 
