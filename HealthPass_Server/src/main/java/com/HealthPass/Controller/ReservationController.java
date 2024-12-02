@@ -60,8 +60,8 @@ public class ReservationController {
     }
     @PostMapping(value="/reservation/", produces="text/plain;charset=UTF-8")
     @ResponseBody
-    public ResponseEntity<ReservationDto> reserved(  ) throws  IOException{
-        ReservationDto dto = reservationService.reservation();
+    public ResponseEntity<ReservationDto> reserved(  @RequestBody ReservationDto reservationDto) throws  IOException{
+        ReservationDto dto = reservationService.reservation(reservationDto);
         HttpHeaders header = new HttpHeaders();
         header.setContentType(new MediaType("application", "json", Charset.forName("UTF-8")));
 

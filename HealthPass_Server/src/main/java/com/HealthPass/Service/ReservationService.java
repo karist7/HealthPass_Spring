@@ -21,10 +21,10 @@ public class ReservationService {
     private final ReservationRepository reservationRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(ReservationService.class);
-    ReservationDto dto = new ReservationDto();
-    public ReservationDto reservedTime(ReservationDto reservation) throws UnsupportedEncodingException, JsonProcessingException {
 
-        setReservation(reservation);
+    public ReservationDto reservedTime(ReservationDto reservationDto) throws UnsupportedEncodingException, JsonProcessingException {
+
+        ReservationDto dto =setReservation(reservationDto);
         Account account = dto.getAccount();
         String email = account.getEmail();
 
@@ -40,15 +40,14 @@ public class ReservationService {
 
         return dto;
     }
-    public ReservationDto reservedMachine(ReservationDto reservation) throws UnsupportedEncodingException {
-
-        setMachine(reservation);
-        dto.setStatus(0);
-        LocalDate date = dto.getDate();
+    public ReservationDto reservedMachine(ReservationDto reservationDto) throws UnsupportedEncodingException {
+        ReservationDto dto = setMachine(reservationDto);
+        LocalDate date =dto.getDate();
         int hour = dto.getHour();
         int minute = dto.getMinute();
         String seat = dto.getSeat();
         String ex_name = dto.getEx_name();
+
         //예약 내역이 존재할 경우
         if(reservationRepository.findResv(date,hour,minute,seat,ex_name).isPresent()){
             dto.setStatus(202);
@@ -58,16 +57,28 @@ public class ReservationService {
         }
         return dto;
     }
-    public ReservationDto reservation( ){
+    public ReservationDto reservation(ReservationDto reservationDto ) throws JsonProcessingException {
+        ReservationDto dto = new ReservationDto();
         dto.setStatus(0);
 
 
-        Reservation resv = ReservationDto.toReservation(dto);
-        LocalDate date =dto.getDate();
-        int hour = dto.getHour();
-        int minute = dto.getMinute();
-
+        int hour = reservationDto.getHour();
+        int minute = reservationDto.getMinute();
+        String stringAccount = reservationDto.getStringAccount();
+        Account account = Account.fromJson(stringAccount);
+        dto.setAccount(account);
         String email = dto.getAccount().getEmail();
+
+        LocalDate date =reservationDto.getDate();
+        dto.setDate(date);
+        dto.setHour(hour);
+        dto.setMinute(minute);
+        dto.setEx_name(reservationDto.getEx_name());
+        dto.setSeat(reservationDto.getSeat());
+
+
+        Reservation resv = ReservationDto.toReservation(dto);
+   
 
         if(reservationRepository.duplicateMachine(email,date, hour, minute).isPresent()){
             dto.setStatus(202);
@@ -81,24 +92,35 @@ public class ReservationService {
         }
         return dto;
     }
-    public void setReservation(ReservationDto reservation) throws JsonProcessingException {
-
-        String dateString = reservation.getDate().toString();
+    public ReservationDto setReservation(ReservationDto reservationDto) throws JsonProcessingException {
+        ReservationDto dto = new ReservationDto();
+        String dateString = reservationDto.getDate().toString();
         LocalDate date = LocalDate.parse(dateString);
         // Reservation 객체에서 AccountDto를 가져옴
-        String stringAccount = reservation.getStringAccount();
+        String stringAccount = reservationDto.getStringAccount();
         Account account = Account.fromJson(stringAccount);
         dto.setAccount(account);
         logger.debug(dto.getAccount().getEmail());
         dto.setDate(date);
-        dto.setHour(reservation.getHour());
-        dto.setMinute(reservation.getMinute());
+        dto.setHour(reservationDto.getHour());
+        dto.setMinute(reservationDto.getMinute());
+        return dto;
 
     }
-    public void setMachine(ReservationDto reservation){
+    public ReservationDto setMachine(ReservationDto reservationDto){
+        ReservationDto dto = new ReservationDto();
+        dto.setEx_name(reservationDto.getEx_name());
+        dto.setSeat(reservationDto.getSeat());
+        dto.setStatus(0);
+        LocalDate date = dto.getDate();
+        int hour = dto.getHour();
+        int minute = dto.getMinute();
 
-        dto.setEx_name(reservation.getEx_name());
-        dto.setSeat(reservation.getSeat());
+
+        dto.setHour(hour);
+        dto.setMinute(minute);
+        return dto;
+
     }
     public List<Reservation> findInfo(ReservationDto reservationDto) throws JsonProcessingException {
         String stringAccount = reservationDto.getStringAccount();
@@ -108,12 +130,15 @@ public class ReservationService {
         return reservationRepository.info(email);
     }
     public ReservationDto deleteReservation(ReservationDto reservationDto){
+        ReservationDto dto = new ReservationDto();
         dto.setStatus(0);
         int minute = reservationDto.getMinute();
         LocalDate date = reservationDto.getDate();
         String ex_name = reservationDto.getEx_name();
         String seat = reservationDto.getSeat();
         int hour = reservationDto.getHour();
+
+
 
         Optional<Reservation> resv = reservationRepository.findResv(date,hour,minute,seat,ex_name);
         if(resv.isPresent()){
